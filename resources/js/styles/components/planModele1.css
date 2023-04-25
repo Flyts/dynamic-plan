@@ -1,0 +1,48 @@
+.Plan
+{
+    width: 80%;
+}
+
+.Plan .bureau
+{
+    cursor: pointer;
+}
+
+.Plan .cls-1 
+{
+    fill: #f1f1f2;
+    stroke: #ccc;
+    stroke-miterlimit: 10;
+}
+
+.Plan #Border .cls-2 
+{
+    fill: rgb(131, 131, 131, .6);
+}
+
+.Plan .bureau .cls-2 
+{
+    fill: #67676c;
+}
+
+.Plan .active .cls-1 
+{
+    fill: rgb(79, 160, 255, .1);
+    stroke: rgb(79, 160, 255, .5);
+}
+
+.Plan .active .cls-2
+{
+    fill: rgb(79, 160, 255, .5);
+}
+
+
+
+
+
+
+
+
+
+
+

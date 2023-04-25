@@ -1,0 +1,118 @@
+:root
+{
+    --second-color: #013328;
+    --black: #060202;
+    --no-color: rgba(0 0 0 / 0);
+    --filter: rgba(0 0 0 / .6);
+
+    --base-color: #100C0D;
+    --base-color_9: rgba(16 12 13 / .9);
+    --base-color_8: rgba(16 12 13 / .8);
+    --base-color_7: rgba(16 12 13 / .7);
+    --base-color_6: rgba(16 12 13 / .6);
+    --base-color_5: rgba(16 12 13 / .5);
+    --base-color_4: rgba(16 12 13 / .4);
+    --base-color_3: rgba(16 12 13 / .3);
+    --base-color_2: rgba(16 12 13 / .2);
+    --base-color_15: rgba(16 12 13 / .15);
+    --base-color_1: rgba(16 12 13 / .1);
+
+    --white: rgb(242, 247, 246);
+    --white_9: rgba(242 247 246 / .9);
+    --white_8: rgba(242 247 246 / .8);
+    --white_7: rgba(242 247 246 / .7);
+    --white_6: rgba(242 247 246 / .6);
+    --white_5: rgba(242 247 246 / .5);
+    --white_4: rgba(242 247 246 / .4);
+    --white_3: rgba(242 247 246 / .3);
+    --white_2: rgba(242 247 246 / .2);
+    --white_15: rgba(242 247 246 / .15);
+    --white_1: rgba(242 247 246 / .1);
+
+    --third-color: #CC8B65;
+    --third-color_9: rgba(204 139 101 / .9);
+    --third-color_8: rgba(204 139 101 / .8);
+    --third-color_7: rgba(204 139 101 / .7);
+    --third-color_6: rgba(204 139 101 / .6);
+    --third-color_5: rgba(204 139 101 / .5);
+    --third-color_4: rgba(204 139 101 / .4);
+    --third-color_3: rgba(204 139 101 / .3);
+    --third-color_2: rgba(204 139 101 / .2);
+    --third-color_15: rgba(204 139 101 / .15);
+    --third-color_1: rgba(204 139 101 / .1);
+
+    --screen: 10%; 
+    --mobil-screen: 5%;
+
+    --bloc_padding: 20px;
+    --bloc_shadow: 0 4px 8px var(--base-color_15);
+
+    --text-shadow: 0 1px 2px var(--base-color_3);
+
+    --nav_shadow: 0 2px 4px var(--base-color_15);
+
+    --small-size: 14px;
+    --normal-size: 16px;
+    --menu-size: 17px;
+
+    --h4: 18px;
+    --h2: 22px;
+    --banner-title-size: 35px;
+
+    --bloc_radius: 5px;
+    --bloc_radius_2: 10px;
+}
+
+button, input, select, textarea
+{
+    outline: none !important;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+.body
+{
+    background-color: var(--white);
+    width: 100%;
+    height: 100vh;
+    font-size: var(--normal-size);
+    overflow-x: hidden;
+    overflow-y: visible;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+/**-- Ecran(<991px) --**/
+@media all and (max-width: 991px) 
+{
+    :root
+    {    
+        --screen: 5%; 
+    } 
+}
+
+
+/**-- Ecran(<771px) --**/
+@media all and (max-width: 771px) 
+{
+    :root
+    {    
+        --screen: 5%; 
+    } 
+}
+
+
+/**-- Ecran(<771px) --**/
+@media all and (min-width: 1500px) 
+{
+    :root
+    {    
+        --screen: 15%; 
+    } 
+}
