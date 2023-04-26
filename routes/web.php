@@ -5,9 +5,15 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Application\HomeController;
+use App\Http\Controllers\Application\OfficeController;
 
 
 Route::get('/', [HomeController::class, "index"])->name("home");
+
+Route::prefix('office')->name('office.')->group(function(){
+    Route::get('/office/{code}', [OfficeController::class, "getOffice"])->name("one");
+    Route::post('/office', [OfficeController::class, "bookOffice"])->name("reserver");
+});
 
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');

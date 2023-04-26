@@ -30,6 +30,10 @@
     opacity: 0;
     visibility: hidden;
 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
     z-index: 10;
 }
 .ActiveModal .bloc
@@ -37,28 +41,115 @@
     transform: translateY(0);
     opacity: 1;
     visibility: visible;
+    overflow: hidden;
 }
 
-.Modal .bloc .top
+.Modal .bloc .img img
 {
+    min-width: 300px;
+    height: 270px;
+    border-radius: var(--bloc_radius_2);
+    object-fit: cover;
+}
+
+.Modal .bloc .text_btn
+{
+    width: 100%;
+    padding-left: 30px;
+
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column
 }
 
-.Modal .bloc .top h4
+.Modal .bloc .text_btn h4
 {
+    color: var(--base-color_9);
     font-size: var(--h4);
     font-weight: 500;
-    margin: 0;
-    color: var(--base-color_9);
 }
 
-.Modal .bloc .top .close
+.Modal .bloc .text_btn p
 {
-    font-size: 25px;
-    cursor: pointer;
+    color: var(--base-color_6);
+    font-size: var(--normal-size);
+    font-weight: 400;
+    margin: 10px 0;
 }
+
+.Modal .bloc .text_btn .icons
+{
+    font-size: 20px;
+    margin: 20px 0;
+
+    display: flex;
+    gap: 20px;
+}
+.Modal .bloc .text_btn .icons .icon
+{
+    color: var(--base-color_6);
+
+    transition: .3s ease-in-out;
+}
+.Modal .bloc .text_btn .icons .icon:hover
+{
+    color: var(--base-color_8);
+}
+
+.Modal .bloc .text_btn .buttons
+{
+    width: 100%;
+    margin-top: 15px;
+    color: var(--base-color_7);
+
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.Modal .bloc .text_btn .buttons button
+{
+    padding: 8px 18px;
+    border-radius: var(--bloc_radius_2);
+    font-size: var(--normal-size);
+    font-weight: 600;
+
+    display: flex;
+    align-items: center;
+
+    transition: .3s ease-in-out;
+}
+
+.Modal .bloc .text_btn .buttons button:first-child
+{
+    border: 2px solid var(--second-color);
+    background-color: var(--no-color);
+    color: var(--second-color);
+}
+.Modal .bloc .text_btn .buttons button:last-child
+{
+    border: 2px solid var(--second-color);
+    background-color: var(--second-color);
+    color: var(--white);
+}
+
+.Modal .bloc .text_btn .buttons button .icon
+{
+  margin-left: 10px;
+  font-size: 18px;
+  transform: rotate(0deg);
+
+  animation: loader 1s ease-in-out infinite;
+}
+@keyframes loader 
+{
+  0%{
+      transform: rotate(0deg);
+  }
+  100%{
+      transform: rotate(360deg);
+  }
+}
+
 
 .Modal .filter
 {
@@ -69,4 +160,93 @@
     background-color: var(--filter);
     width: 100%;
     height: 100vh;
+}
+
+
+
+
+
+
+
+
+
+
+
+/**-- Ecran(<991px) --**/
+@media all and (max-width: 991px) 
+{
+    .Modal .bloc
+    {
+        height: 90vh;
+        width: 70%;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .Modal .bloc .img
+    {
+        width: 100%;
+    }
+
+    .Modal .bloc .img img
+    {
+        width: 100% !important;
+    }
+
+    .Modal .bloc .text_btn
+    {
+        height: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .Modal .bloc .text_btn h4
+    {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .Modal .bloc .text_btn p
+    {
+        text-align: center;
+    }
+
+    .Modal .bloc .text_btn .icons
+    {
+        justify-content: center;
+    }
+
+    .Modal .bloc .text_btn .buttons
+    {
+        justify-content: center;
+    }
+}
+
+
+/**-- Ecran(<771px) --**/
+@media all and (max-width: 771px) 
+{  
+    .Modal .bloc
+    {
+        height: 90vh;
+        width: 90%;
+    }
+}
+
+
+/**-- Ecran(<1024px) --**/
+@media all and (min-width: 992px) 
+{ 
+    .Modal .bloc
+    {
+        width: 70%;
+    } 
+}
+
+
+/**-- Ecran(<1500px) --**/
+@media all and (min-width: 1500px) 
+{  
 }
