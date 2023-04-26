@@ -4,20 +4,19 @@ import "@/styles/components/planModele1.css"
 
 function PlanModele1()
 {
-    function handleSelectBureau(e, name)
+    function handleSelectOffice(e, code)
     {
-        // e.target.parentNode.classList.add("active")
-        setSelectedBureau(name)
-        setBureauStatus(true)
+        setOfficeStatus(true)
+        setOffice(code)
     }
 
-    const {setSelectedBureau, setBureauStatus} = bureauStore(state => state)
+    const {setOfficeStatus, setOffice} = bureauStore(state => state)
 
     const component = 
     <div className="Plan">
         <svg id="Plan" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 514.06 231.15">
             <g id="G_salle_1">
-            <g id="B_30" className="bureau" onClick={(e) => handleSelectBureau(e, "B_30")}>
+            <g id="B_30" className="bureau" onClick={(e) => handleSelectOffice(e, "B_30")}>
                 <title>Bureau 30 - salle 1</title>
                 <rect className="cls-1" x="437.73" y="178.82" width="19.96" height="37.89"/>
                 <rect className="cls-2" x="458.36" y="188.56" width="4.61" height="2"/>
@@ -28,7 +27,7 @@ function PlanModele1()
                 <rect className="cls-2" x="462.98" y="192.42" width="0.99" height="10.28"/>
                 <rect className="cls-2" x="460.95" y="192.42" width="1.03" height="10.28"/>
             </g>
-            <g id="B_29" className="bureau" onClick={(e) => handleSelectBureau(e, "B_29")}>
+            <g id="B_29" className="bureau" onClick={(e) => handleSelectOffice(e, "B_29")}>
                 <title>Bureau 29 - salle 1</title>
                 <rect className="cls-1" x="437.73" y="139.69" width="19.96" height="37.89"/>
                 <rect className="cls-2" x="458.36" y="149.68" width="4.61" height="2"/>
@@ -39,7 +38,7 @@ function PlanModele1()
                 <rect className="cls-2" x="462.98" y="153.54" width="0.99" height="10.28"/>
                 <rect className="cls-2" x="460.95" y="153.54" width="1.03" height="10.28"/>
             </g>
-            <g id="B_28" className="bureau" onClick={(e) => handleSelectBureau(e, "B_28")}>
+            <g id="B_28" className="bureau" onClick={(e) => handleSelectOffice(e, "B_28")}>
                 <title>Bureau 28 - salle 1</title>
                 <rect className="cls-1" x="437.73" y="100.67" width="19.96" height="37.89"/>
                 <rect className="cls-2" x="458.36" y="110.66" width="4.61" height="2"/>
@@ -50,7 +49,7 @@ function PlanModele1()
                 <rect className="cls-2" x="462.98" y="114.52" width="0.99" height="10.28"/>
                 <rect className="cls-2" x="460.95" y="114.52" width="1.03" height="10.28"/>
             </g>
-            <g id="B_27" className="bureau" onClick={(e) => handleSelectBureau(e, "B_27")}>
+            <g id="B_27" className="bureau" onClick={(e) => handleSelectOffice(e, "B_27")}>
                 <title>Bureau 27 - salle 1</title>
                 <rect className="cls-1" x="416.43" y="178.82" width="19.96" height="37.89"/>
                 <rect className="cls-2" x="411.34" y="204.72" width="4.61" height="2"/>
@@ -61,7 +60,7 @@ function PlanModele1()
                 <rect className="cls-2" x="410.33" y="192.58" width="0.99" height="10.28"/>
                 <rect className="cls-2" x="412.34" y="192.58" width="1.03" height="10.28"/>
             </g>
-            <g id="B_26" className="bureau" onClick={(e) => handleSelectBureau(e, "B_26")}>
+            <g id="B_26" className="bureau" onClick={(e) => handleSelectOffice(e, "B_26")}>
                 <title>Bureau 26 - salle 1</title>
                 <rect className="cls-1" x="416.43" y="139.73" width="19.96" height="37.89"/>
                 <rect className="cls-2" x="411.34" y="165.63" width="4.61" height="2"/>
@@ -72,7 +71,7 @@ function PlanModele1()
                 <rect className="cls-2" x="410.33" y="153.5" width="0.99" height="10.28"/>
                 <rect className="cls-2" x="412.34" y="153.5" width="1.03" height="10.28"/>
             </g>
-            <g id="B_25" className="bureau" onClick={(e) => handleSelectBureau(e, "B_25")}>
+            <g id="B_25" className="bureau" onClick={(e) => handleSelectOffice(e, "B_25")}>
                 <title>Bureau 25 - salle 1</title>
                 <rect className="cls-1" x="416.41" y="100.65" width="19.96" height="37.89"/>
                 <rect className="cls-2" x="411.32" y="126.56" width="4.61" height="2"/>
@@ -83,7 +82,7 @@ function PlanModele1()
                 <rect className="cls-2" x="410.32" y="114.42" width="0.99" height="10.28"/>
                 <rect className="cls-2" x="412.32" y="114.42" width="1.03" height="10.28"/>
             </g>
-            <g id="B_24" className="bureau" onClick={(e) => handleSelectBureau(e, "B_24")}>
+            <g id="B_24" className="bureau" onClick={(e) => handleSelectOffice(e, "B_24")}>
                 <title>Bureau 24 - salle 1</title>
                 <rect className="cls-1" x="328.6" y="203.61" width="37.89" height="19.96"/>
                 <rect className="cls-2" x="338.59" y="198.53" width="2" height="4.61"/>
@@ -94,7 +93,7 @@ function PlanModele1()
                 <rect className="cls-2" x="342.45" y="197.52" width="10.28" height="0.99"/>
                 <rect className="cls-2" x="342.45" y="199.53" width="10.28" height="1.03"/>
             </g>
-            <g id="B_23" className="bureau" onClick={(e) => handleSelectBureau(e, "B_23")}>
+            <g id="B_23" className="bureau" onClick={(e) => handleSelectOffice(e, "B_23")}>
                 <title>Bureau 23 - salle 1</title>
                 <rect className="cls-1" x="289.44" y="203.61" width="37.89" height="19.96"/>
                 <rect className="cls-2" x="299.43" y="198.53" width="2" height="4.61"/>
@@ -105,7 +104,7 @@ function PlanModele1()
                 <rect className="cls-2" x="303.28" y="197.52" width="10.28" height="0.99"/>
                 <rect className="cls-2" x="303.28" y="199.53" width="10.28" height="1.03"/>
             </g>
-            <g id="B_22" className="bureau" onClick={(e) => handleSelectBureau(e, "B_22")}>
+            <g id="B_22" className="bureau" onClick={(e) => handleSelectOffice(e, "B_22")}>
                 <title>Bureau 22 - salle 1</title>
                 <rect className="cls-1" x="250.22" y="203.61" width="37.89" height="19.96"/>
                 <rect className="cls-2" x="260.71" y="198.53" width="2" height="4.61"/>
@@ -116,7 +115,7 @@ function PlanModele1()
                 <rect className="cls-2" x="264.57" y="197.52" width="10.28" height="0.99"/>
                 <rect className="cls-2" x="264.57" y="199.53" width="10.28" height="1.03"/>
             </g>
-            <g id="B_21" className="bureau" onClick={(e) => handleSelectBureau(e, "B_21")}>
+            <g id="B_21" className="bureau" onClick={(e) => handleSelectOffice(e, "B_21")}>
                 <title>Bureau 21 - salle 1</title>
                 <rect className="cls-1" x="211.04" y="203.61" width="37.89" height="19.96"/>
                 <rect className="cls-2" x="221.03" y="198.53" width="2" height="4.61"/>
@@ -127,7 +126,7 @@ function PlanModele1()
                 <rect className="cls-2" x="224.89" y="197.52" width="10.28" height="0.99"/>
                 <rect className="cls-2" x="224.89" y="199.53" width="10.28" height="1.03"/>
             </g>
-            <g id="B_20" className="bureau" onClick={(e) => handleSelectBureau(e, "B_20")}>
+            <g id="B_20" className="bureau" onClick={(e) => handleSelectOffice(e, "B_20")}>
                 <title>Bureau 20 - salle 1</title>
                 <g id="Layer_45" data-name="Layer 45">
                 <rect className="cls-1" x="167.12" y="70.34" width="37.89" height="19.96"/>
@@ -140,7 +139,7 @@ function PlanModele1()
                 <rect className="cls-2" x="181.26" y="66.25" width="10.28" height="1.03"/>
                 </g>
             </g>
-            <g id="B_19" className="bureau" onClick={(e) => handleSelectBureau(e, "B_19")}>
+            <g id="B_19" className="bureau" onClick={(e) => handleSelectOffice(e, "B_19")}>
                 <title>Bureau 19 - salle 1</title>
                 <g id="Layer_43" data-name="Layer 43">
                 <rect className="cls-1" x="128" y="70.31" width="37.89" height="19.96"/>
@@ -153,7 +152,7 @@ function PlanModele1()
                 <rect className="cls-2" x="141.53" y="66.14" width="10.28" height="1.03"/>
                 </g>
             </g>
-            <g id="B_18" className="bureau" onClick={(e) => handleSelectBureau(e, "B_18")}>
+            <g id="B_18" className="bureau" onClick={(e) => handleSelectOffice(e, "B_18")}>
                 <title>Bureau 18 - salle 1</title>
                 <g id="Layer_41" data-name="Layer 41">
                 <rect className="cls-1" x="88.97" y="70.31" width="37.89" height="19.96"/>
@@ -166,7 +165,7 @@ function PlanModele1()
                 <rect className="cls-2" x="102.86" y="66.14" width="10.28" height="1.03"/>
                 </g>
             </g>
-            <g id="B_17" className="bureau" onClick={(e) => handleSelectBureau(e, "B_17")}>
+            <g id="B_17" className="bureau" onClick={(e) => handleSelectOffice(e, "B_17")}>
                 <title>Bureau 17 - salle 1</title>
                 <g id="Layer_39" data-name="Layer 39">
                 <rect className="cls-1" x="50.04" y="70.23" width="37.89" height="19.96"/>
@@ -179,7 +178,7 @@ function PlanModele1()
                 <rect className="cls-2" x="63.88" y="66.14" width="10.28" height="1.03"/>
                 </g>
             </g>
-            <g id="B_16" className="bureau" onClick={(e) => handleSelectBureau(e, "B_16")}>
+            <g id="B_16" className="bureau" onClick={(e) => handleSelectOffice(e, "B_16")}>
                 <title>Bureau 16 - salle 1</title>
                 <g id="Layer_36" data-name="Layer 36">
                 <rect className="cls-2" x="338.2" y="105.51" width="7" height="2.02"/>
@@ -189,7 +188,7 @@ function PlanModele1()
                 <polygon className="cls-2" points="339.21 104.48 339.21 103.49 344.21 103.49 344.21 92.49 346.21 92.49 346.21 104.5 339.21 104.48"/>
                 </g>
             </g>
-            <g id="B_15" className="bureau" onClick={(e) => handleSelectBureau(e, "B_15")}>
+            <g id="B_15" className="bureau" onClick={(e) => handleSelectOffice(e, "B_15")}>
                 <title>Bureau 15 - salle 1</title>
                 <g id="Layer_34" data-name="Layer 34">
                 <rect className="cls-2" x="338.22" y="85.48" width="7" height="2.02"/>
@@ -199,7 +198,7 @@ function PlanModele1()
                 <polygon className="cls-2" points="339.24 84.46 339.23 83.46 344.24 83.46 344.24 72.47 346.23 72.47 346.23 84.48 339.24 84.46"/>
                 </g>
             </g>
-            <g id="B_14" className="bureau" onClick={(e) => handleSelectBureau(e, "B_14")}>
+            <g id="B_14" className="bureau" onClick={(e) => handleSelectOffice(e, "B_14")}>
                 <title>Bureau 14 - salle 1</title>
                 <g id="Layer_32" data-name="Layer 32">
                 <rect className="cls-2" x="338.24" y="66.46" width="7" height="2.02"/>
@@ -209,7 +208,7 @@ function PlanModele1()
                 <polygon className="cls-2" points="339.26 65.43 339.25 64.44 344.26 64.44 344.26 53.44 346.26 53.44 346.26 65.45 339.26 65.43"/>
                 </g>
             </g>
-            <g id="B_13" className="bureau" onClick={(e) => handleSelectBureau(e, "B_13")}>
+            <g id="B_13" className="bureau" onClick={(e) => handleSelectOffice(e, "B_13")}>
                 <title>Bureau 13 - salle 1</title>
                 <g id="Layer_30" data-name="Layer 30">
                 <rect className="cls-2" x="338.27" y="43.09" width="7" height="2.02"/>
@@ -219,7 +218,7 @@ function PlanModele1()
                 <polygon className="cls-2" points="339.28 42.07 339.27 41.07 344.28 41.07 344.28 30.08 346.28 30.08 346.28 42.09 339.28 42.07"/>
                 </g>
             </g>
-            <g id="B_12" className="bureau" onClick={(e) => handleSelectBureau(e, "B_12")}>
+            <g id="B_12" className="bureau" onClick={(e) => handleSelectOffice(e, "B_12")}>
                 <title>Bureau 12 - salle 1</title>
                 <g id="Layer_28" data-name="Layer 28">
                 <rect className="cls-2" x="289.82" y="88.69" width="7" height="2.02"/>
@@ -229,7 +228,7 @@ function PlanModele1()
                 <polygon className="cls-2" points="295.8 91.73 295.81 92.73 290.8 92.73 290.8 103.73 288.8 103.73 288.8 91.71 295.8 91.73"/>
                 </g>
             </g>
-            <g id="B_11" className="bureau" onClick={(e) => handleSelectBureau(e, "B_11")}>
+            <g id="B_11" className="bureau" onClick={(e) => handleSelectOffice(e, "B_11")}>
                 <title>Bureau 11 - salle 1</title>
                 <g id="Layer_26" data-name="Layer 26">
                 <rect className="cls-2" x="289.79" y="68.44" width="7" height="2.02"/>
@@ -239,7 +238,7 @@ function PlanModele1()
                 <polygon className="cls-2" points="295.78 71.49 295.78 72.49 290.78 72.49 290.78 83.48 288.78 83.48 288.78 71.47 295.78 71.49"/>
                 </g>
             </g>
-            <g id="B_10" className="bureau" onClick={(e) => handleSelectBureau(e, "B_10")}>
+            <g id="B_10" className="bureau" onClick={(e) => handleSelectOffice(e, "B_10")}>
                 <title>Bureau 10 - salle 1</title>
                 <g id="Layer_24" data-name="Layer 24">
                 <rect className="cls-2" x="289.77" y="48.43" width="7" height="2.02"/>
@@ -249,7 +248,7 @@ function PlanModele1()
                 <polygon className="cls-2" points="295.75 51.48 295.76 52.48 290.75 52.48 290.75 63.47 288.76 63.47 288.76 51.46 295.75 51.48"/>
                 </g>
             </g>
-            <g id="B_9" className="bureau" onClick={(e) => handleSelectBureau(e, "B_9")}>
+            <g id="B_9" className="bureau" onClick={(e) => handleSelectOffice(e, "B_9")}>
                 <title>Bureau 9 - salle 1</title>
                 <g id="Layer_22" data-name="Layer 22">
                 <rect className="cls-2" x="289.75" y="27.57" width="7" height="2.02"/>
@@ -259,7 +258,7 @@ function PlanModele1()
                 <polygon className="cls-2" points="295.73 30.61 295.74 31.61 290.73 31.61 290.73 42.61 288.74 42.61 288.74 30.6 295.73 30.61"/>
                 </g>
             </g>
-            <g id="B_8" className="bureau" onClick={(e) => handleSelectBureau(e, "B_8")}>
+            <g id="B_8" className="bureau" onClick={(e) => handleSelectOffice(e, "B_8")}>
                 <title>Bureau 8 - salle 1</title>
                 <g id="Layer_20" data-name="Layer 20">
                 <rect className="cls-2" x="470.97" y="27" width="2.02" height="7"/>
@@ -269,7 +268,7 @@ function PlanModele1()
                 <polygon className="cls-2" points="474.02 28.02 475.02 28.01 475.02 33.02 486.01 33.02 486.01 35.02 474 35.02 474.02 28.02"/>
                 </g>
             </g>
-            <g id="B_7" className="bureau" onClick={(e) => handleSelectBureau(e, "B_7")}>
+            <g id="B_7" className="bureau" onClick={(e) => handleSelectOffice(e, "B_7")}>
                 <title>Bureau 7 - salle 1</title>
                 <g id="Layer_18" data-name="Layer 18">
                 <rect className="cls-2" x="424.92" y="27.03" width="2.02" height="7"/>
@@ -279,7 +278,7 @@ function PlanModele1()
                 <polygon className="cls-2" points="427.97 28.04 428.97 28.04 428.97 33.04 439.96 33.04 439.96 35.04 427.95 35.04 427.97 28.04"/>
                 </g>
             </g>
-            <g id="B_6" className="bureau" onClick={(e) => handleSelectBureau(e, "B_6")}>
+            <g id="B_6" className="bureau" onClick={(e) => handleSelectOffice(e, "B_6")}>
                 <title>Bureau 6 - salle 1</title>
                 <g id="Layer_16" data-name="Layer 16">
                 <rect className="cls-2" x="380.81" y="27.05" width="2.02" height="7"/>
@@ -289,7 +288,7 @@ function PlanModele1()
                 <polygon className="cls-2" points="383.86 28.06 384.86 28.06 384.86 33.06 395.85 33.06 395.85 35.06 383.84 35.06 383.86 28.06"/>
                 </g>
             </g>
-            <g id="B_5" className="bureau" onClick={(e) => handleSelectBureau(e, "B_5")}>
+            <g id="B_5" className="bureau" onClick={(e) => handleSelectOffice(e, "B_5")}>
                 <title>Bureau 5 - salle 1</title>
                 <g id="Layer_14" data-name="Layer 14">
                 <rect className="cls-2" x="208.08" y="28.1" width="2.02" height="7"/>
@@ -299,7 +298,7 @@ function PlanModele1()
                 <polygon className="cls-2" points="211.12 29.11 212.12 29.1 212.12 34.11 223.12 34.11 223.12 36.11 211.11 36.11 211.12 29.11"/>
                 </g>
             </g>
-            <g id="B_4" className="bureau" onClick={(e) => handleSelectBureau(e, "B_4")}>
+            <g id="B_4" className="bureau" onClick={(e) => handleSelectOffice(e, "B_4")}>
                 <title>Bureau 4 - salle 1</title>
                 <g id="Layer_12" data-name="Layer 12">
                 <rect className="cls-2" x="163.88" y="27.13" width="2.02" height="7"/>
@@ -309,7 +308,7 @@ function PlanModele1()
                 <polygon className="cls-2" points="166.93 28.14 167.93 28.14 167.93 33.14 178.93 33.14 178.93 35.14 166.91 35.14 166.93 28.14"/>
                 </g>
             </g>
-            <g id="B_3" className="bureau" onClick={(e) => handleSelectBureau(e, "B_3")}>
+            <g id="B_3" className="bureau" onClick={(e) => handleSelectOffice(e, "B_3")}>
                 <title>Bureau 3 - salle 1</title>
                 <g id="Layer_10" data-name="Layer 10">
                 <rect className="cls-2" x="118.01" y="27.15" width="2.02" height="7"/>
@@ -319,7 +318,7 @@ function PlanModele1()
                 <polygon className="cls-2" points="121.06 28.16 122.06 28.16 122.06 33.16 133.06 33.16 133.06 35.16 121.04 35.16 121.06 28.16"/>
                 </g>
             </g>
-            <g id="B_2" className="bureau" onClick={(e) => handleSelectBureau(e, "B_2")}>
+            <g id="B_2" className="bureau" onClick={(e) => handleSelectOffice(e, "B_2")}>
                 <title>Bureau 2 - salle 1</title>
                 <g id="Layer_8" data-name="Layer 8">
                 <rect className="cls-2" x="75.01" y="27.14" width="2.02" height="7"/>
@@ -329,7 +328,7 @@ function PlanModele1()
                 <polygon className="cls-2" points="78.06 28.16 79.05 28.15 79.05 33.16 90.05 33.16 90.05 35.16 78.04 35.16 78.06 28.16"/>
                 </g>
             </g>
-            <g id="B_1" className="bureau" onClick={(e) => handleSelectBureau(e, "B_1")}>
+            <g id="B_1" className="bureau" onClick={(e) => handleSelectOffice(e, "B_1")}>
                 <title>Bureau 1 - salle 1</title>
                 <g id="Layer_6" data-name="Layer 6">
                 <rect className="cls-2" x="29.03" y="27.16" width="2" height="8"/>
