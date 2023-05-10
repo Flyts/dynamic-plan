@@ -1,40 +1,95 @@
+.Bloc_Plan
+{
+    position: relative;
+}
+
 .Plan
 {
-    width: 80%;
+    width: 621px;
+    height: 600px;
+    overflow: auto;
 }
+
+.Bloc_Plan .Btns
+{
+    background-color: rgba(0 0 0 / .7);
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    border-radius: 10px;
+    padding: 15px;
+
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(10px);
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    transition: .3s ease-in-out;
+}
+.Bloc_Plan:hover .Btns
+{
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.Bloc_Plan .Btns .icon
+{
+    color:  rgba(255 255 255 / .6);
+    font-size: 20px;
+    cursor: pointer;
+
+    z-index: 2;
+
+    transition: .3s ease-in-out;
+}
+.Bloc_Plan .Btns .icon:hover
+{
+    color:  rgba(255 255 255 / .9);
+}
+
 
 .Plan .bureau
 {
     cursor: pointer;
 }
 
-.Plan .cls-1 
+
+.Plan .cls-2,
+.Plan .cls-3,
+.Plan .cls-4,
+.Plan .cls-5,
+.Plan .cls-6,
+.Plan .cls-7
 {
-    fill: #f1f1f2;
-    stroke: #ccc;
-    stroke-miterlimit: 10;
+    fill: rgba(0, 0, 0, 0);
+    cursor: pointer;
+
+    transition: .3s ease-in-out;
 }
 
-.Plan #Border .cls-2 
-{
-    fill: rgb(131, 131, 131, .6);
+.Plan .cls-2:hover {
+    stroke: #f72c2c;
 }
 
-.Plan .bureau .cls-2 
-{
-    fill: #67676c;
+.Plan .cls-4:hover {
+    stroke: #32d32a;
 }
 
-.Plan .active .cls-1 
-{
-    fill: rgb(79, 160, 255, .1);
-    stroke: rgb(79, 160, 255, .5);
+.Plan .cls-5:hover {
+    stroke: #2468d6;
 }
 
-.Plan .active .cls-2
-{
-    fill: rgb(79, 160, 255, .5);
+.Plan .cls-6:hover {
+    stroke: #4dfff2;
 }
+.Plan .cls-7:hover {
+    stroke: #f01d8a;
+}
+
 
 
 

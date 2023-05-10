@@ -21,6 +21,7 @@
 
 .Modal .bloc
 {
+    position: relative;
     background-color: var(--white);
     width: 60%;
     border-radius: var(--bloc_radius_2);
@@ -78,12 +79,22 @@
 
 .Modal .bloc .text_btn .icons
 {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Modal .bloc .text_btn .icons .office_icon
+{
     font-size: 20px;
     margin: 20px 0;
 
     display: flex;
     gap: 20px;
 }
+
 .Modal .bloc .text_btn .icons .icon
 {
     color: var(--base-color_6);
@@ -93,6 +104,22 @@
 .Modal .bloc .text_btn .icons .icon:hover
 {
     color: var(--base-color_8);
+}
+
+.Modal .bloc .text_btn .icons .booking
+{
+    font-size: 20px;
+    margin: 20px 0;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.Modal .bloc .text_btn .icons .booking span
+{
+    font-size: var(--normal-size);
+    color: var(--base-color_7);
 }
 
 .Modal .bloc .text_btn .buttons
@@ -108,7 +135,7 @@
 
 .Modal .bloc .text_btn .buttons button
 {
-    padding: 8px 18px;
+    padding: 6px 18px;
     border-radius: var(--bloc_radius_2);
     font-size: var(--normal-size);
     font-weight: 600;
@@ -197,6 +224,7 @@
 
     .Modal .bloc .text_btn
     {
+        padding: 0;
         height: 100%;
         overflow-x: hidden;
         overflow-y: auto;
@@ -214,6 +242,15 @@
     }
 
     .Modal .bloc .text_btn .icons
+    {
+        width: 100%;
+    
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .Modal .bloc .text_btn .center
     {
         justify-content: center;
     }

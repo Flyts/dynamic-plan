@@ -41,7 +41,7 @@ class BaseController extends Controller
 
 
         if(!empty($error)){
-            $response['data'] = $error;
+            $response['result'] = $error;
         }
 
         if(!empty($errorMessages))

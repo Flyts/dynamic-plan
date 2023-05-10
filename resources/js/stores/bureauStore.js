@@ -6,7 +6,6 @@ export const bureauStore = create((set) => ({
   offices: [],
   office: null,
   officeLoader: false,
-  bookOfficeMessage: null,
 
   setOfficeStatus: (value) => set({ officeStatus: value }),
   setOffices: (value) => set({offices: value}),
@@ -24,9 +23,7 @@ export const bureauStore = create((set) => ({
     .catch(err => console.error(err))
   },
   resetOffice: () => set({office: null}),
-
-  setBookOfficeMessage: (value) => set({bookOfficeMessage: value}),
-  resetBookOfficeMessage: () => set({bookOfficeMessage: null}),
+  updateOffice: (value) => set({office: value})
 
 }))
 
