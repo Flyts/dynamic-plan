@@ -1,11 +1,9 @@
 import "@/styles/components/modalBureau.css"
 import { bureauStore } from "@/stores/bureauStore"
-import {GrFormClose} from "react-icons/gr"
 import {BsSnow, BsPlug} from "react-icons/bs"
 import {TiWiFi} from "react-icons/ti"
 import {MdOutlineChair} from "react-icons/md"
 import Loader from "./pieces/_Loader"
-import axios from "axios"
 import { useState } from "react"
 import {BiLoaderAlt} from "react-icons/bi"
 import {TbUser, TbUsers} from "react-icons/tb"
@@ -52,8 +50,10 @@ function ModalBureau()
 
                                 <div className="text_btn">
                                     <div className="texts">
-                                        <h4>{office.name}</h4>
+                                        <h4>{`${office.categorie.name} | ${office.name}`}</h4>
+
                                         <p>{office.description}</p>
+
                                         <div className={`icons ${!office.booking.length ? "center" : null}`}>
                                             <div className="office_icon">
                                                 <BsPlug className="icon" title={"inclus : Électricité"}/>
@@ -96,7 +96,7 @@ function ModalBureau()
                                                             null
                                                     }
                                                 </button>
-                                            : `Le ${office.name} est occupé`
+                                            : `Est déjà occupé`
                                         }
                                     </div>  
                                 </div>

@@ -3,7 +3,7 @@ import { create } from 'zustand'
 
 export const bureauStore = create((set) => ({
   officeStatus: false,
-  offices: [],
+  offices: null,
   office: null,
   officeLoader: false,
 

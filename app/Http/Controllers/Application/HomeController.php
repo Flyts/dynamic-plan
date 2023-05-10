@@ -11,7 +11,19 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $offices = Offices::all();
+        $data = Offices::all(["id", "code", "name", "status", "categorie_id"]);
+        $offices = [];
+
+        foreach($data as $value) 
+        {
+            array_push($offices, [
+                "id" => $value->id,
+                "code" => $value->code,
+                "name" => $value->name,
+                "status" => $value->status,
+                "categorie" => $value->categorie->name,
+            ]);
+        }
 
         return Inertia::render("Home", ["offices" => $offices]);
     }

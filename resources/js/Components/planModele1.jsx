@@ -1,14 +1,13 @@
 
 import { bureauStore } from "@/stores/bureauStore"
 import "@/styles/components/planModele1.css"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import {FiZoomIn, FiZoomOut} from "react-icons/fi"
 
 function PlanModele1()
 {
-    function handleSelectOffice(e)
+    function handleSelectOffice(code)
     {
-        const code = e.nativeEvent.target.id
         setOfficeStatus(true)
         setOffice(code)
     }
@@ -27,477 +26,513 @@ function PlanModele1()
         }
     }
 
-    const {setOfficeStatus, setOffice} = bureauStore(state => state)
+    const {
+        setOfficeStatus, 
+        offices, setOffice
+    } = bureauStore(state => state)
 
     const [zoom, setZoom] = useState(1),
           [strokeWidth, setStrokeWidth] = useState(3)
 
+    
+    useEffect(() => 
+    {
+        if(offices)
+        {
+            function editDomSvg(element)
+            {
+                const id        = (element.id).toLowerCase(),
+                      name      = `${offices[id].categorie} | ${offices[id].name}`,
+                      nameClass = offices[id].status == "1" ? "Occupe" : "Libre",
+                      parent    = element.parentNode,
+                      title = parent.getElementsByTagName("title")[0]
+
+                      title.innerHTML = name 
+                      parent.classList.add(nameClass)
+                      element.onclick = () => handleSelectOffice(id)
+                      parent.setAttribute("aria-labelledby", "tac")
+            }
+
+            const polygons = document.querySelectorAll("polygon"),
+                  paths    = document.querySelectorAll("path")
+    
+            polygons.forEach((element) => {
+                editDomSvg(element)
+            })
+
+            paths.forEach((element) => {
+                editDomSvg(element)
+            })
+        }
+    }, [offices])
+
+
     const component = 
     <div className="Bloc_Plan">
         <div className="Plan">
-            <svg style={{width: "auto", height: `${100 * zoom}%`}} xmlns="http://www.w3.org/2000/svg" xlinkHref="http://www.w3.org/1999/xlink" viewBox="0 0 1200 1158">
+            <svg style={{width: "auto", height: `${90 * zoom}vh`}} xmlns="http://www.w3.org/2000/svg" xlinkHref="http://www.w3.org/1999/xlink" viewBox="0 0 1200 1158">
                 <g id="Layer_1" data-name="Layer 1">
                     <image className="img" xlinkHref={"https://res.cloudinary.com/drctiml18/image/upload/v1683624868/zfqx1gh9odobajqnfdbg.png"}/>
                 </g>
 
                 <g id="Auditorium" className="cls-1">
-                    <g onClick={handleSelectOffice}>
-                        <title>Auditorium</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Auditorium" style={{strokeWidth: `${strokeWidth}px`}} className="cls-2" points="465.85 800.78 465.85 852.12 467.15 852.12 467.13 860.35 466.97 860.35 466.97 860.54 465.85 860.54 465.83 918.64 467.15 918.64 467.15 919.68 467.15 925.12 493.39 925.09 493.39 919.57 500.21 919.57 500.21 923.26 500.21 923.99 514.58 924.01 514.58 919.57 524.51 909.67 625.39 909.87 635.46 919.88 635.46 924.02 649.57 924.02 649.57 919.52 656.24 919.53 656.24 925.25 681.92 925.1 681.92 922.51 682.14 922.48 682.14 919.91 682.14 800.78 465.85 800.78"/>
                     </g>
                 </g>
 
                 <g id="Shop" className="cls-3">
-                    <g onClick={handleSelectOffice}>
-                        <title>Shop 4</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Shop_4" style={{strokeWidth: `${strokeWidth}px`}} className="cls-4" points="244.71 857.36 360.33 857.38 360.48 919.39 347.45 919.39 347.45 920.09 351.96 920.09 351.98 920.66 246.03 920.66 246 918.8 244.71 918.8 244.71 857.36"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Shop 3</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Shop_3" style={{strokeWidth: `${strokeWidth}px`}} className="cls-4" points="246.01 922.69 351.94 922.69 351.94 923.44 355.84 923.44 355.84 922.69 360.31 922.69 360.5 985.23 360.31 985.23 360.32 986.34 355.82 986.34 355.85 985.38 351.99 985.35 351.97 986.34 244.73 986.34 244.73 923.62 246.09 923.58 246.01 922.69"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Shop 2</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Shop_2" style={{strokeWidth: `${strokeWidth}px`}} className="cls-4" points="244.7 1051.7 244.72 988.22 351.94 988.23 351.94 989.16 355.84 989.15 355.84 988.22 360.29 988.22 360.29 1050.2 347.4 1050.2 347.24 1050.23 347.27 1050.98 347.27 1051.33 351.92 1051.34 351.92 1051.7 244.7 1051.7"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Shop 1</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Shop_1" style={{strokeWidth: `${strokeWidth}px`}} className="cls-4" points="244.7 1053.75 244.69 1115.36 248.02 1115.36 248.02 1117.41 350.42 1117.39 350.42 1115.33 355.84 1115.33 355.84 1117.41 360.27 1117.41 360.29 1055.37 347.41 1055.4 347.28 1055.41 347.29 1054.29 351.92 1054.31 351.93 1053.75 244.7 1053.75"/>
                     </g>
                 </g>
 
                 <g id="Bureaux_-_Type_3" data-name="Bureaux - Type 3" className="cls-3">
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 9 - Type 3</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_3_B_9" style={{strokeWidth: `${strokeWidth}px`}} className="cls-5" points="303.35 126.77 303.33 192.83 307.58 192.83 309.51 192.47 347.08 192.65 349.15 192.83 351.94 192.83 351.94 192.1 355.67 192.13 355.67 192.83 359.6 192.83 359.95 192.83 359.95 160.1 359.41 160.1 359.38 150.38 360.5 150.41 360.5 136.66 345.79 136.64 345.79 135.72 359.39 135.68 359.37 135.31 350.44 135.36 350.45 126.77 346.7 126.77 345.94 127.16 335.37 127.15 334.62 126.77 331.1 126.77 329.96 127.15 319.92 127.14 318.81 126.77 303.35 126.77"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 8 - Type 3</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_3_B_8" style={{strokeWidth: `${strokeWidth}px`}} className="cls-5" points="303.46 194.87 303.33 225.37 303.86 225.37 303.86 237.52 303.46 237.52 303.5 259.27 307.61 259.27 308.56 258.71 347.81 258.78 349.12 259.27 351.93 259.27 351.93 257.44 355.84 257.47 355.84 259.27 359.53 259.27 359.53 229.88 351.93 229.88 351.89 225.99 359.53 225.89 359.37 216.85 360.51 216.91 360.51 203.07 345.75 203.07 345.75 202.12 359.37 202.12 359.34 194.87 355.62 194.87 355.62 195.78 352.02 195.82 351.86 194.87 346.77 194.87 346.73 195.23 334.55 195.13 334.55 194.87 303.46 194.87"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 7 - Type 3</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_3_B_7" style={{strokeWidth: `${strokeWidth}px`}} className="cls-5" points="244.72 195.06 244.72 259.87 277.84 259.88 277.84 259.29 281.96 259.31 281.96 260.43 281.96 261.17 296.66 261.16 296.66 259.3 300.55 259.29 300.55 195.06 244.72 195.06"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 6 - Type 3</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_3_B_6" style={{strokeWidth: `${strokeWidth}px`}} className="cls-5" points="303.33 293.56 303.34 358.9 318.76 358.93 334.6 358.93 334.6 358.39 358.21 358.36 358.21 358.93 359.53 358.93 359.53 350.3 361.25 350.33 361.25 336.56 359.36 336.56 359.39 326.5 359.98 326.47 359.98 293.56 355.81 293.56 355.79 295.39 351.97 295.42 351.87 293.56 349.1 293.56 347.83 294.12 308.57 294.14 307.61 293.56 303.33 293.56"/>
                     </g>
                     
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 5 - Type 3</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_3_B_5" style={{strokeWidth: `${strokeWidth}px`}} className="cls-5" points="303.5 360.73 303.34 424.98 318.68 424.98 319.91 424.34 331.07 424.44 331.07 424.98 334.55 424.98 335.38 424.74 358.26 424.74 359.44 424.98 359.44 417.49 361.25 417.49 361.25 402.99 359.49 403.04 359.39 393.78 359.98 393.78 359.98 360.73 303.5 360.73"/>
                     </g>
                     
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 4 - Type 3</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_3_B_4" style={{strokeWidth: `${strokeWidth}px`}} className="cls-5" points="303.34 492.15 318.82 492.16 319.93 491.6 331.09 491.61 331.09 492.16 336.48 492.15 337.04 491.96 348.01 491.98 348.76 492.16 351.96 492.16 351.96 490.49 355.65 490.49 355.65 492.16 359.37 492.16 359.37 484.53 361.25 484.53 361.25 469.83 359.4 469.83 359.39 459.97 359.98 459.97 359.96 427.2 349.1 427.2 347.86 427.4 307.62 427.42 307.62 427.2 303.34 427.2 303.34 492.15"/>
                     </g>
                     
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 3 - Type 3</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_3_B_3" style={{strokeWidth: `${strokeWidth}px`}} className="cls-5" points="303.33 524.93 303.35 546.73 303.89 546.73 303.91 558.95 303.33 558.95 303.36 590.84 318.76 590.84 320.44 590.4 329.02 590.47 331.07 590.84 336.51 590.84 351.94 590.84 351.94 589.91 355.67 589.88 355.67 590.84 359.36 590.84 359.36 582.76 359.36 582.46 361.25 582.46 361.25 568.13 359.44 568.11 359.46 557.88 360 557.88 359.9 524.93 355.64 524.93 355.64 526.77 351.92 526.77 351.87 524.93 349.13 524.93 347.09 525.13 309.5 525.1 307.44 524.93 303.33 524.93"/>
                     </g>
                     
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 2 - Type 3</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_3_B_2" style={{strokeWidth: `${strokeWidth}px`}} className="cls-5" points="303.36 657.26 307.99 657.26 308.58 656.89 354.53 656.89 355.26 657.26 359.39 657.27 359.38 649.64 361.22 649.64 361.24 635.29 359.41 635.29 359.39 625.95 359.95 625.95 359.93 592.86 355.63 592.86 355.63 593.6 351.99 593.61 351.99 592.86 338.52 592.86 338.52 593.22 336.5 593.24 336.5 592.86 303.36 592.86 303.36 657.26"/>
                     </g>
                     
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 1 - Type 3</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_3_B_1" style={{strokeWidth: `${strokeWidth}px`}} className="cls-5" points="303.35 659.11 307.43 659.11 307.43 659.66 347.84 659.68 349.17 659.11 359.93 659.11 359.95 692.06 359.36 692.06 359.39 700.56 361.22 700.56 361.25 714.57 359.39 714.57 359.34 723.29 357.18 723.29 357.16 719.76 351.94 719.79 351.97 724.78 348.78 724.78 347.97 724.66 337.03 724.64 336.41 724.78 320.44 724.66 318.81 724.78 303.35 724.78 303.35 693.16 304.08 692.6 304.08 681.8 303.35 681.09 303.35 659.11"/>
                     </g>
                 </g>
 
                 <g id="Bureaux_-_Type_2" data-name="Bureaux - Type 2" className="cls-3">
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 20 - Type 2</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_2_B_20" style={{strokeWidth: `${strokeWidth}px`}} className="cls-6" points="635.39 625.98 635.43 725.03 651.43 725.03 651.43 724.2 652.92 724.66 661.52 724.66 663.5 724.1 663.5 725.03 677.46 725.03 677.46 722.02 687.14 722.07 687.14 723.36 690.74 723.36 690.74 715.16 692.02 715.14 692.02 700.45 690.68 700.46 690.71 691.89 691.43 691.88 691.46 625.98 635.39 625.98"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 19 - Type 2</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_2_B_19" style={{strokeWidth: `${strokeWidth}px`}} className="cls-6" points="576.73 625.98 576.8 725.03 587.75 725.03 587.75 725.76 604.87 725.76 604.87 724.98 611.41 725.03 611.41 726.35 625.92 726.31 625.92 724.81 632.26 724.86 632.26 625.98 576.73 625.98"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 18 - Type 2</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_2_B_18" style={{strokeWidth: `${strokeWidth}px`}} className="cls-6" points="516.99 625.98 517.02 725.03 522.6 725.03 522.6 726.33 537.12 726.33 537.12 724.81 543.09 724.84 543.09 725.8 567.83 725.76 567.83 722.05 573.07 722.03 573.07 625.98 516.99 625.98"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 17 - Type 2</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_2_B_17" style={{strokeWidth: `${strokeWidth}px`}} className="cls-6" points="457.82 625.98 458.21 700.44 457.28 700.44 457.28 715.16 458.21 715.16 458.21 723.34 460.64 723.34 460.64 722.38 467.1 722.38 467.1 724.98 514.05 725.03 514.05 625.98 457.82 625.98"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 16 - Type 2</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_2_B_16" style={{strokeWidth: `${strokeWidth}px`}} className="cls-6" points="635.41 228.41 635.41 325.59 649.73 325.56 649.73 324.66 651.61 325.17 660.15 325.18 662.18 324.64 662.18 325.59 683.44 325.56 683.44 326.31 686.78 326.31 686.78 324.27 687.54 324.28 687.54 325.56 690.7 325.57 690.7 319.05 692.01 319.04 692.57 319.05 692.57 304.35 690.7 304.37 690.7 295.77 691.46 295.8 691.45 229.89 683.05 229.88 682.09 229.88 682.12 228.41 635.41 228.41"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 15 - Type 2</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_2_B_15" style={{strokeWidth: `${strokeWidth}px`}} className="cls-6" points="576.58 228.02 576.79 323.16 577.15 323.16 577.16 325.57 587.77 325.59 587.77 325.22 602.84 325.19 602.84 325.56 632.27 325.56 632.27 228.02 626 228.02 625.94 227.1 611.41 227.1 611.46 228.04 604.87 228.04 604.87 227.63 587.75 227.7 587.75 228.02 576.58 228.02"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 14 - Type 2</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_2_B_14" style={{strokeWidth: `${strokeWidth}px`}} className="cls-6" points="516.99 228.04 521.16 228.04 521.16 227.11 535.46 227.11 535.46 228.04 539.97 228.04 539.97 227.58 573.08 227.63 573.06 323.15 572.51 323.15 572.51 325.58 568.04 325.58 568.04 325.22 552.79 325.2 552.77 325.58 516.99 325.58 516.99 228.04"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 13 - Type 2</title>
+                    <g>
+                        <title></title>
                         <path id="RC_Type_2_B_13" style={{strokeWidth: `${strokeWidth}px`}} className="cls-6" d="M2365.63,2149v1.89h-7.93l0,65.87h.56l-.05,8.58h-1.27v14.7h1.3v6.44h2.32l-.07-5.51h6.66v5.51l18.89.07v-.93l.36-.37.76.76s.71-.19.71,0v.17l8.4,0h2v.41l15.87-.05V2149Z" transform="translate(-1900 -1921)"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 12 - Type 2</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_2_B_12" style={{strokeWidth: `${strokeWidth}px`}} className="cls-6" points="244.72 293.02 244.72 319.05 245.79 319.05 245.79 325.71 244.72 325.71 244.7 392.03 260.71 391.99 260.71 390.86 284.74 390.91 284.74 392.03 300.56 392.04 300.56 293.56 296.64 293.53 296.64 292.38 281.94 292.38 281.94 293.51 277.81 293.53 277.81 292.99 244.72 293.02"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 11 - Type 2</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_2_B_11" style={{strokeWidth: `${strokeWidth}px`}} className="cls-6" points="189.97 292.99 189.98 392.03 193.15 392.03 193.15 391.54 193.89 391.65 237.61 391.65 237.61 392.03 241.16 392.03 240.99 325.72 239.49 325.75 239.51 319.03 241.16 319.06 241.16 293.56 235.39 293.56 235.41 292.43 220.72 292.43 220.72 293.57 214.95 293.56 214.94 292.97 189.97 292.99"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 10 - Type 2</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_2_B_10" style={{strokeWidth: `${strokeWidth}px`}} className="cls-6" points="133.97 391.96 133.97 384.52 134.5 384.1 134.5 383.64 134.33 383.64 134.31 367.79 134.11 367.03 134.16 295.17 145.13 295.17 145.13 292.99 162.23 292.99 162.23 293.53 167.42 293.56 167.42 292.41 181.77 292.41 181.77 293.56 187.01 293.56 187.05 391.96 133.97 391.96"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 9 - Type 2</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_2_B_9" style={{strokeWidth: `${strokeWidth}px`}} className="cls-6" points="244.7 492.74 277.86 492.74 277.86 492.17 281.94 492.17 281.94 494.05 296.64 494.01 296.64 492.17 300.54 492.17 300.56 393.83 244.7 393.83 244.7 492.74"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 8 - Type 2</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_2_B_8" style={{strokeWidth: `${strokeWidth}px`}} className="cls-6" points="190 393.91 189.98 492.7 214.94 492.7 214.94 492.14 220.72 492.19 220.72 494 235.38 494 235.38 492.14 241.16 492.16 241.16 393.7 237.56 393.7 190 393.91"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 7 - Type 2</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_2_B_7" style={{strokeWidth: `${strokeWidth}px`}} className="cls-6" points="134.08 393.91 134.08 401.25 134.34 401.65 134.37 418.76 134.08 418.76 134.18 490.5 145.15 490.5 145.15 492.72 162.26 492.72 162.26 492.35 167.44 492.35 167.44 494.02 181.81 494.01 181.81 492.17 187.05 492.16 187.05 393.91 134.08 393.91"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 6 - Type 2</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_2_B_6" style={{strokeWidth: `${strokeWidth}px`}} className="cls-6" points="246.01 524.34 278.81 524.34 278.81 524.86 282.63 524.86 282.63 523.56 297.2 523.56 297.2 524.86 300.53 524.86 300.57 623.93 284.75 623.95 284.73 623.02 283.63 623.02 283.62 623.21 282.87 623.21 282.88 623.39 282.69 623.39 282.7 623.58 274.31 623.59 274.31 623.39 274.13 623.39 274.13 623.2 273.57 623.2 273.57 623.02 273.19 623.02 273.19 622.09 273 622.08 272.26 622.09 272.27 623.01 272.07 623.02 272.08 623.22 271.15 623.21 271.14 623.58 262.59 623.58 262.56 623.21 261.83 623.21 261.82 623.02 260.73 623.02 260.73 623.95 244.72 623.95 244.72 525.11 246.02 525.11 246.01 524.34"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 5 - Type 2</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_2_B_5" style={{strokeWidth: `${strokeWidth}px`}} className="cls-6" points="189.99 524.19 189.79 623.93 193.12 623.93 193.12 623.56 237.63 623.59 237.63 623.93 241.19 623.93 241.19 525.29 239.7 525.29 239.7 525.12 238.41 525.1 238.4 524.91 234.66 524.88 234.68 523.58 220.15 523.63 220.16 524.89 220.15 524.93 214.94 524.93 214.94 524.16 189.99 524.19"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 4 - Type 2</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_2_B_4" style={{strokeWidth: `${strokeWidth}px`}} className="cls-6" points="187 623.93 187 524.92 181.81 524.92 181.81 523.8 167.47 523.8 167.47 524.96 162.23 524.93 162.23 524.18 145.12 524.17 145.12 526.77 134.33 526.8 134.33 623.93 187 623.93"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 3 - Type 2</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_2_B_3" style={{strokeWidth: `${strokeWidth}px`}} className="cls-6" points="244.72 625.99 244.7 720.38 246.01 720.38 246.01 725.79 278.78 725.77 278.78 724.84 282.69 724.84 282.69 726.72 297.18 726.72 297.18 725.05 300.53 725 300.57 625.99 244.72 625.99"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 2 - Type 2</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_2_B_2" style={{strokeWidth: `${strokeWidth}px`}} className="cls-6" points="189.95 625.99 189.79 725.77 214.92 725.76 214.92 725.02 220.32 725.04 220.32 726.69 234.11 726.68 234.68 726.69 234.68 725.01 239.7 725.03 239.7 720.23 241.19 720.15 240.94 625.99 189.95 625.99"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 1 - Type 2</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_2_B_1" style={{strokeWidth: `${strokeWidth}px`}} className="cls-6" points="134.14 625.99 187 625.99 187 725.04 181.82 725.04 181.82 726.33 181.8 726.69 167.44 726.69 167.46 725 162.25 725.02 162.25 725.76 145.14 725.77 145.16 723.32 134.14 723.34 134.14 625.99"/>
                     </g>
                 </g>
 
                 <g id="Bureaux_-_Type_1" data-name="Bureaux - Type 1" className="cls-3">
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 12 - Type 1</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_1_B_12" style={{strokeWidth: `${strokeWidth}px`}} className="cls-7" points="577.14 327.62 577.14 329.81 576.58 329.81 576.61 424.98 592.65 424.98 593.95 424.42 615.5 424.42 616.82 424.98 632.25 424.98 632.25 423.51 635.41 423.49 635.41 424.98 640.63 424.98 641.39 424.78 684.3 424.78 685.27 425.15 690.71 425.15 690.71 417.53 692.36 417.52 692.36 403.13 690.69 403.19 690.7 393.5 691.46 393.52 691.58 327.62 686.81 327.62 686.79 326.87 683.45 326.87 683.45 327.63 635.41 327.61 635.41 329.09 632.27 329.12 632.27 327.61 577.14 327.62"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 11 - Type 1</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_1_B_11" style={{strokeWidth: `${strokeWidth}px`}} className="cls-7" points="457.85 327.62 460.63 327.62 460.63 328.73 466.96 328.74 466.96 327.62 514.07 327.62 514.07 329.13 516.86 329.13 516.86 327.62 522.81 327.62 522.81 327.98 567.1 327.99 567.1 327.62 572.5 327.62 572.51 329.85 573.07 329.85 573.07 424.98 557.25 424.98 557.23 424.23 555.21 424.42 533.22 424.42 533.22 424.98 516.85 424.98 516.85 423.47 514.04 423.49 514.05 424.98 458.22 424.98 458.22 417.52 456.53 417.51 456.53 403.22 458.24 403.19 458.22 393.52 457.66 393.51 457.85 327.62"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 10 - Type 1</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_1_B_10" style={{strokeWidth: `${strokeWidth}px`}} className="cls-7" points="576.76 427.15 576.61 521.02 577.16 521.02 577.16 524.37 632.23 524.35 632.23 522.7 635.43 522.69 635.43 524.37 637.11 524.37 637.11 523.98 681.4 523.99 681.4 524.37 690.69 524.37 690.69 517.09 692.5 517.12 692.5 502.4 690.69 502.4 690.69 493.12 691.42 493.07 691.42 427.15 635.39 427.15 635.36 428.69 632.23 428.69 632.25 427.2 576.76 427.15"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 9 - Type 1</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_1_B_9" style={{strokeWidth: `${strokeWidth}px`}} className="cls-7" points="457.46 427.2 457.47 493.1 458.22 493.1 458.22 502.42 456.38 502.42 456.38 517.09 458.22 517.09 458.21 524.37 460.64 524.37 460.64 520.28 467.13 520.28 467.13 524.37 468.3 524.37 468.3 523.98 512.56 523.98 512.56 524.37 514 524.37 514 522.73 516.99 522.73 516.99 524.37 533.21 524.39 534.55 524.02 557.23 524.02 557.23 524.39 572.49 524.37 572.49 521.01 573.07 521.01 573.07 486.38 572.51 486.38 572.54 427.38 573.07 427.38 573.07 427.2 516.87 427.2 516.85 428.7 514.05 428.7 514.05 427.2 457.46 427.2"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 8 - Type 1</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_1_B_8" style={{strokeWidth: `${strokeWidth}px`}} className="cls-7" points="577.02 526.39 577.02 527.89 576.63 527.89 576.73 623.94 632.26 623.9 632.26 622.09 635.39 622.19 635.39 623.94 640.6 623.94 640.6 623.56 685.13 623.56 685.13 623.94 690.71 623.94 690.71 616.31 692.43 616.31 692.43 601.96 690.69 601.98 690.69 592.5 691.47 592.5 691.45 526.39 686.75 526.39 686.76 524.92 683.41 524.92 683.43 526.42 681.39 526.42 681.39 526.79 651.25 527.03 651.22 526.78 637.05 526.77 637.05 526.45 635.41 526.45 635.41 527.92 632.2 527.94 632.23 526.42 577.02 526.39"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 7 - Type 1</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_1_B_7" style={{strokeWidth: `${strokeWidth}px`}} className="cls-7" points="457.83 526.39 460.64 526.39 460.64 526.98 467.12 526.98 467.12 526.39 468.27 526.39 468.27 526.98 512.56 526.97 512.93 526.39 514.05 526.39 514.05 527.75 517.03 527.75 517.03 526.39 572.51 526.41 572.51 527.91 573.07 527.91 573.07 623.94 517.02 623.94 517 622.29 514.04 622.27 514.08 623.94 509.06 623.94 509.02 623.56 464.72 623.58 464.72 623.94 458.22 623.94 458.2 616.31 456.33 616.34 456.33 601.94 458.2 601.99 458.2 592.6 457.83 592.47 457.81 591.74 457.83 526.39"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 6 - Type 1</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_1_B_6" style={{strokeWidth: `${strokeWidth}px`}} className="cls-7" points="788.57 128.06 900.31 128.09 900.31 127.73 901.78 127.73 901.75 189.32 900.09 189.32 900.09 196.76 901.78 196.76 901.78 225.96 886.17 225.96 884.05 225.57 862.14 225.63 862.14 225.96 846.11 225.96 846.11 224.29 843.17 224.29 843.17 225.96 841.99 225.96 841.99 225.57 797.48 225.6 797.51 225.96 789.19 225.96 789.22 216.62 787.46 216.69 787.46 202.74 789.15 202.74 789.15 193.56 788.63 193.6 788.57 128.06"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 5 - Type 1</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_1_B_5" style={{strokeWidth: `${strokeWidth}px`}} className="cls-7" points="796.6 228.02 797.51 228.02 797.51 228.41 842.01 228.43 842.01 228.02 843.13 228.02 843.13 229.53 846.09 229.53 846.09 228.02 901.96 228.03 901.98 254.84 900.1 254.84 900.12 262.81 901.98 262.81 901.96 321.07 900.12 321.07 900.12 325.2 900.28 325.2 900.28 325.59 846.11 325.59 846.09 323.89 843.1 323.86 843.13 325.59 842.02 325.59 842.02 325.2 797.55 325.2 797.55 325.59 797.19 325.59 796.44 325.59 796.44 326.33 793.09 326.33 793.09 325.59 789.15 325.59 789.15 319.08 787.29 319.05 787.29 304.35 789.16 304.36 789.17 295.82 788.61 295.79 788.62 229.9 796.63 229.89 796.6 228.02"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 4 - Type 1</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_1_B_4" style={{strokeWidth: `${strokeWidth}px`}} className="cls-7" points="788.6 327.62 788.62 393.52 789.17 393.52 789.15 403.21 787.31 403.21 787.31 417.52 789.17 417.52 789.17 425.16 843.17 425.06 843.17 423.44 846.14 423.47 846.14 424.95 862.13 424.95 862.13 423.95 863.07 424.42 873.14 424.4 873.67 423.84 874.96 424.4 886.16 424.42 886.16 425.16 901.96 425.14 901.96 395.94 900.12 395.93 900.13 389.44 901.96 389.4 901.96 328.36 900.09 328.36 900.09 327.62 896.74 327.62 896.74 327.94 849.66 327.99 849.66 327.62 846.04 327.62 846.04 329.17 843.2 329.22 843.1 327.62 796.37 327.62 796.37 326.82 793.09 326.82 793.09 327.7 788.6 327.62"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 3 - Type 1</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_1_B_3" style={{strokeWidth: `${strokeWidth}px`}} className="cls-7" points="788.63 427.18 788.58 493.04 789.19 493.04 789.17 502.37 787.26 502.37 787.31 517.12 789.19 517.12 789.19 524.39 797.52 524.39 797.52 523.95 842.05 523.98 842.05 524.39 843.17 524.39 843.17 522.65 846.09 522.7 846.09 524.39 862.11 524.42 863.06 524 886.13 523.98 886.13 524.42 900.04 524.42 900.04 521.6 900.04 519.24 901.91 519.24 901.76 461.08 899.74 461.08 899.74 454.16 901.91 454.17 901.96 454.17 901.96 427.18 845.96 427.18 845.92 428.7 843.13 428.7 843.13 427.18 788.63 427.18"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 2 - Type 1</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_1_B_2" style={{strokeWidth: `${strokeWidth}px`}} className="cls-7" points="788.61 526.42 788.6 592.52 789.15 592.52 789.15 601.92 787.36 601.92 787.36 616.33 789.15 616.33 789.15 623.9 807.21 623.9 843.17 623.9 843.17 622.17 846.04 622.24 846.04 623.9 901.75 623.84 901.75 593.5 900.15 593.47 900.12 586.94 901.91 586.9 901.75 526.23 846.11 526.4 846.09 527.7 843.15 527.7 843.15 526.4 796.39 526.45 796.44 524.96 793.09 524.96 793.09 526.38 788.61 526.42"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Bureau 1 - Type 1</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Type_1_B_1" style={{strokeWidth: `${strokeWidth}px`}} className="cls-7" points="789.14 722.02 796.74 722.02 796.74 725.08 805.53 725.08 806.26 724.66 835.51 724.66 835.7 725.08 843.13 725.08 843.13 721.85 846.06 721.85 846.06 725.08 866.25 725.03 866.25 724.2 867.74 724.64 876.26 724.69 878.27 724.15 878.27 725.08 898.26 725 898.26 720.72 901.78 720.72 901.76 659.86 901.05 659.86 901.05 658.19 900.12 658.19 900.12 651.65 901.95 651.65 901.93 625.98 846.06 625.98 846.06 627.45 843.15 627.45 843.17 625.98 788.61 625.98 788.61 691.88 789.17 691.89 789.17 699.91 787.3 699.89 787.3 714.44 789.19 714.42 789.14 722.02"/>
                     </g>
                 </g>
 
                 <g id="Coworking" className="cls-3">
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 44</title>
+                    <g>
+                        <title></title>
                         <path id="RC_Cow_44" style={{strokeWidth: strokeWidth}} className="cls-2" d="M2625.7,2611.41l-.73-.2,0-3.18-.54-.37v-.74h.17v-.36h.95v.74h.55v-2a20.12,20.12,0,0,1,3.17-.78v-.36H2629l0-.73h.18v-.19h1v1.11H2630v.2l.95.18,1.63.17.05.2.55,0v2.24h.75v-.74h.94V2608h-.55v3.37h-1v.56h5.7v11.89h-17.61v-1.28l-.36-.22v-8.87l.39-1V2612h4.27Z" transform="translate(-1900 -1921)"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 43</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Cow_43" style={{strokeWidth: strokeWidth}} className="cls-2" points="752.47 666.19 743.96 666.19 744.14 674.82 745.44 676.83 749.33 676.83 749.33 677.18 748.78 677.18 748.61 677.4 748.6 680.55 748.41 680.74 748.03 680.74 748.05 682.04 749.14 682.04 749.16 681.45 749.35 681.08 749.49 681.09 749.53 683.34 750.64 683.88 752.13 683.88 752.68 684.06 752.68 685.37 753.78 685.37 754.01 685.17 754.01 684.45 753.58 684.25 753.58 684.05 754.35 683.89 756.25 683.52 756.79 683.11 756.6 681.47 756.61 681.08 757.14 681.1 757.36 681.29 757.36 682.03 758.64 682.02 758.64 680.91 757.71 680.53 757.71 677.74 757.88 677.73 757.87 677.37 756.96 677.17 756.96 676.81 761.81 676.81 761.81 667.72 761.07 666.56 760.78 666.19 752.47 666.19"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 42</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Cow_42" style={{strokeWidth: strokeWidth}} className="cls-2" points="752.32 647.95 752.12 647.72 752.12 646.69 752.36 646.48 753.06 646.48 753.28 646.85 753.44 647.22 753.41 647.8 753.25 647.77 753.23 647.95 753.8 647.99 754.01 648.17 755.29 648.14 756.04 648.36 756.21 649.24 756.21 649.83 756.44 650.57 756.26 650.57 756.2 650.95 756.61 650.95 756.77 650.03 758.09 650.03 758.09 651.32 757.32 651.32 757.31 653.79 757.15 654.12 757.15 654.3 757.35 654.3 757.35 655.02 756.6 655.02 756.6 655.41 761.81 655.41 761.81 664.54 760.89 666.09 743.96 666.09 743.96 655.4 749 655.41 748.97 654.84 748.24 654.84 748.24 653.16 748.04 653.05 748.06 652.33 748.24 652.2 748.2 651.29 747.47 651.3 747.47 649.99 748.41 650 748.77 650.39 748.77 650.94 749.34 650.92 749.35 650.76 749.2 650.76 749.15 649.62 749.35 649.63 749.34 648.73 750.5 648.16 751.38 648.17 751.39 647.96 752.32 647.95"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 41</title>
+                    <g>
+                        <title></title>
                         <path id="RC_Cow_41" style={{strokeWidth: strokeWidth}} className="cls-2" d="M2625.51,2581.07s-.57.26-.54.73v.72l.16.21h.58l.35-.17v-.93h.57v2.23a5.74,5.74,0,0,0,3,.73v.94l.2.54h.73l.37-.35v-.55l-.16,0,0-.57.18-.17s2.2.11,2.8-.72v-2.07h.54v.7l1.3,0v-.72l-.18-.4-.55,0-.19-.15,0-2.81.18-.56h4.25l0-10.42-9-.16h-8.47l-.54,1.1v8.72l.18,0v.73h4.27" transform="translate(-1900 -1921)"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 40</title>
+                    <g>
+                        <title></title>
                         <path id="RC_Cow_40" style={{strokeWidth: strokeWidth}} className="cls-2" d="M2629.46,2549.19V2549h-.17v-.93l.27-.2h.83v1.28l.34.19h1.32l1.25.62v2.23h.79v-1l.95,0,.2.74s-.22.73-.79.69l0,3,0,.08h.18v.36l-.22.15h-.71v.22H2638l.76.8.3.7-.05,7.62h-.22l-.42,1.41h-16.82l-.46-1v-8.38l.17-1.13,4.86,0v-.28l-.76.06v-3.54s-.2.05-.78-.39l0-.88.2-.17.88,0,.21.94h.45l-.06-2.09,1.77-.68Z" transform="translate(-1900 -1921)"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 39</title>
+                    <g>
+                        <title></title>
                         <path id="RC_Cow_39" style={{strokeWidth: strokeWidth}} className="cls-2" d="M2644.17,2538.08h17.45l.18,1.24v9.14H2657l0,.95h.8l0,3.41.54.33h.41l-.05,1.08h-1.31l0-.74h-.7l0,2.17a5.17,5.17,0,0,1-2.94.61v.27l.33.25,0,.77-.31.19h-.89l-.07-1.47h-1.5l-1.13-.55-.54,0,0-1.77.2-.41h-.56v.57l-.16.14h-1l0-1.3.53-.22v-3.28l.72,0v-.92h-5.13Z" transform="translate(-1900 -1921)"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 38</title>
+                    <g>
+                        <title></title>
                         <path id="RC_Cow_38" style={{strokeWidth: strokeWidth}} className="cls-2" d="M2652.12,2520.18v-1.1l.22-.19h.91l.2.41v.69l-.2.19.57.21s.93-.19,1.12,0l.18.19h.73l.19.34.19.43v.52h.34v.75l-.32.18v.2h.57l0-.56.21-.18h1.09v1.3l-.22.18h-.74l.21.4v2.2l-.21.37h.23l0,.36h-.76l0,.23h5.31l-.1,10.55h-17.64v-10.57h4.8v-.21h-.76v-3.38h-.54l-.16-.34v-.89l.24-.25.69,0,.34.7.55,0v-2.22Z" transform="translate(-1900 -1921)"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 37</title>
+                    <g>
+                        <title></title>
                         <path id="RC_Cow_37" style={{strokeWidth: strokeWidth}} className="cls-2" d="M2630,2518l-8,.16-.64.81v9.59h4.65l0,3.57-.56.2,0,1.07.22.21h.7l.37-.37v-.54l.31-.18.12.57H2627v1l.3.44v.42l1.5.44,1.27.26v1.29h1.13v-.35h.19s.28-.45,0-.71l-.27-.26.49-.28,1.47-.06s.88,0,1.11-.69v-1.89h.62v.86h1l.21-.22v-.95l-.22-.26-.69,0v-2.93l.18,0,0-.49,3.7-.06L2639,2518Z" transform="translate(-1900 -1921)"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 36</title>
+                    <g>
+                        <title></title>
                         <path id="RC_Cow_36" style={{strokeWidth: strokeWidth}} className="cls-2" d="M2630,2517.87h-7.79l-.78-1,0-9.21.39-.5h4.28V2507h-.5l-.25-.21v-3.16l-.73-.56,0-.82.2-.1h.94l.18.38-.05.42.44-.05,0-2.23.79-.39h.87v-.2h1.47v-.54a.38.38,0,0,1,0-.61l0-.36h.94v.6l.18.48-.2.47,1.65,0,.22.2h.7l.25.39h.36l-.18.39,0,1.84.71,0,0-.74,1.07,0v1.12l-.35,0-.31.22,0,2.76h.17l0,.54-.2.22h-.73v.21H2639v9.44a2.37,2.37,0,0,1-.78,1.25Z" transform="translate(-1900 -1921)"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 35</title>
+                    <g>
+                        <title></title>
                         <path id="RC_Cow_35" style={{strokeWidth: strokeWidth}} className="cls-2" d="M2649.32,2495.43h-4.87l.07-12.12h17.64l-.2,12.12h-5v.57h.79l0,3.31h.31l.62.23,0,1.13h-1.31v-.77l-.7,0v2.32a14.32,14.32,0,0,1-2.77.62l0,.42h.22l0,.67-.37.23h-.74l-.18-.21v-1.26h-1.45l-.21-.21-.87,0a2.5,2.5,0,0,1-.65-.51l0-2.07h-.4v.14h.14l0,.41-.29.2s-.54.27-.75.11l-.21-.16,0-1.06.15-.25h.42l0-3.33.7,0Z" transform="translate(-1900 -1921)"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 34</title>
+                    <g>
+                        <title></title>
                         <path id="RC_Cow_34" style={{strokeWidth: strokeWidth}} className="cls-2" d="M2651.17,2429.53v1.31l.23.16v4.49h-.23v1.65h2.58l.09.77H2657a1.09,1.09,0,0,0,.77.52h.65l.18-.17v-.66l-.45-.2-.07-.26h2.14l.1-1v-2.51l.72,0v.16l1,.05v-1.14l-.62-.18-.87.19-.22.13v-2.22l0-1.09h-1.65s-.47.08-.34-.23,0-.37,0-.37h.25l-.13-.89h-1.13l-.36.56-.88.05-.1-.23-2.15,0v1.1Z" transform="translate(-1900 -1921)"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 33</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Cow_33" style={{strokeWidth: strokeWidth}} className="cls-2" points="722.54 510.42 722.54 511.15 722.96 511.51 723.47 511.51 723.47 511.36 724.02 511.31 724.02 512.68 724.2 513.06 724.2 514.46 724.42 514.69 724.98 514.69 725.13 514.52 725.67 514.51 726.07 514.69 726.07 515.97 726.44 516.02 726.44 516.17 727.36 516.17 727.36 515.44 727.57 515.24 728.32 515.24 728.5 515.61 730.72 515.62 730.72 515.05 730.36 515.05 730.34 514.68 730.54 514.5 733.33 514.51 733.33 513.96 733.13 513.93 733.15 507.58 733.33 507.41 733.33 506.9 730.36 506.86 730.54 506.5 730.71 506.5 730.7 506.12 727.93 506.12 727.93 506.32 727.37 506.31 727.37 505.75 726.09 505.75 726.05 506.84 725.68 507.05 724.2 507.07 724.03 509.11 724.05 510.4 722.54 510.42"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 32</title>
+                    <g>
+                        <title></title>
                         <path id="RC_Cow_32" style={{strokeWidth: strokeWidth}} className="cls-2" d="M2651.39,2409.63h-.17v-1.31h2.6v-1.05h2l.21.27.91.09.22-.8h1.29l.19.92h-.32l.32.57h1.67v3.38l.44-.21h1.17v1.16h-1.29l-.42-.25.07,2.48v1h-2.14l-.07.21s.75.16.59.85,0,.36,0,.36l-1.55,0-.23-.61-3,.05-.1-.73-2.57,0v-1.66l.2-.4Z" transform="translate(-1900 -1921)"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 31</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Cow_31" style={{strokeWidth: strokeWidth}} className="cls-2" points="724.03 489 723.48 489 723.48 488.82 722.75 488.82 722.75 489.91 724.03 489.91 724.03 491.25 724.22 491.58 724.22 493.08 726.03 493.08 726.09 494.59 727.5 494.59 727.56 493.85 728.63 494.16 730.55 494.18 730.67 494.01 730.67 493.67 730.37 493.5 730.55 493.1 733.32 493.09 733.32 492.5 733.14 492.53 733.13 486.15 733.32 485.98 733.32 485.49 730.54 485.49 730.54 485.08 730.73 485.08 730.73 484.74 727.76 484.74 727.29 484.3 727.22 484.14 726.08 484.19 726.08 485.45 724.44 485.49 724.22 485.71 724.19 487.03 724.02 487.58 724.03 489"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 30</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Cow_30" style={{strokeWidth: strokeWidth}} className="cls-2" points="751.35 465.57 751.42 473.15 754.03 473.15 754.03 473.43 753.8 473.91 754.03 474.27 756.12 474.27 756.43 474.06 756.92 474.08 757.17 474.7 758.67 474.7 758.67 473.18 760.47 473.15 760.47 469.85 760.69 469.83 760.96 470.13 761.82 470.21 761.98 469.85 761.98 469.1 761.48 469.1 761.45 468.9 760.82 468.9 760.68 469.25 760.5 469.26 760.5 468.04 760.34 467.63 760.32 466.08 760.32 465.88 760.07 465.57 758.62 465.57 758.6 464.25 757.13 464.25 757 464.64 756.84 464.77 753.77 464.79 753.82 465.57 751.35 465.57"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 29</title>
+                    <g>
+                        <title></title>
                         <path id="RC_Cow_29" style={{strokeWidth: strokeWidth}} className="cls-2" d="M2626.06,2385.62v-1.51s1.19-.14,1.16,0l0,.13.37.08v.36l3,.16-.1.78h2.83v.58h-.16l-.05,6.27h.21v.8h-2.76l-.05.35h.18v.35l-3.07.08a.74.74,0,0,1-.46.72,1.8,1.8,0,0,1-1.11-.07v-1.43l-1.81,0v-1.12l-.2-.89v-1.17l-1.38,0v-1.15l1.34,0a4.23,4.23,0,0,1,0-1.5l.14-.39,0-.15,0-1.25Z" transform="translate(-1900 -1921)"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 28</title>
+                    <g>
+                        <title></title>
                         <path id="RC_Cow_28" style={{strokeWidth: strokeWidth}} className="cls-2" d="M2651.21,2246.2v2.37l.21.11v2.76h-.21v2.39h2.59v.75H2657s.1.55.54.52h1v-.85l-.29-.29,0-.13,1.91,0v-3.28l1.81-.07v-1.08l-1.47,0,0,.2-.18,0v-2.24h.15l.1-.38-.28-.7h-1.62l0-.15h-.43v-.29h.41v-.62l-.26-.47h-1.21l-.18.24,0,.54-.9,0-.11-.31h-2.11l0,1.06Z" transform="translate(-1900 -1921)"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 27</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Cow_27" style={{strokeWidth: strokeWidth}} className="cls-2" points="724.21 323.71 724.21 324.47 724.05 324.55 724.03 327.07 722.55 327.07 722.55 328.17 724.05 328.17 724.03 330.23 724.21 330.45 724.21 331.16 724.39 331.34 726.05 331.34 726.08 332.84 727.38 332.84 727.38 332.08 728.3 332.08 728.51 332.28 729.8 332.26 730.71 332.27 730.71 331.7 730.32 331.71 730.34 331.36 733.3 331.33 733.3 330.66 733.11 330.54 733.14 327.63 733.3 327.6 733.3 327.25 733.11 327.23 733.12 324.27 733.3 324.27 733.35 323.71 730.56 323.71 730.54 323.15 730.54 322.94 727.37 322.98 727.38 322.4 726.07 322.4 726.08 323.68 724.21 323.71"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 26</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Cow_26" style={{strokeWidth: strokeWidth}} className="cls-2" points="756.97 303.19 756.11 303.19 755.98 303.06 753.8 303.06 753.8 304.01 751.22 304.01 751.22 306.41 751.37 306.78 751.4 308.61 751.22 308.95 751.22 311.63 753.74 311.63 754.1 311.89 753.79 311.99 753.79 312.29 756.97 312.35 757.15 312.82 758.62 312.92 758.62 312.25 758.25 311.8 758.21 311.55 760.15 311.58 760.35 310.83 760.53 310.49 760.24 310.46 760.29 308.09 760.53 308.06 760.53 308.24 761.97 308.27 761.97 307.19 760.55 307.16 760.53 307.27 760.29 307.35 760.32 305.13 760.5 305.12 760.51 304.59 760.09 303.93 758.59 303.97 758.42 303.83 758.07 303.79 758.03 303.55 758.65 303.57 758.65 302.91 758.44 302.54 757.13 302.54 756.97 303.19"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 25</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Cow_25" style={{strokeWidth: strokeWidth}} className="cls-2" points="723.97 305.67 722.68 305.67 722.68 306.54 722.86 306.75 723.97 306.75 723.97 308.01 724.23 308.29 724.23 309.72 724.43 309.9 725.12 309.9 725.33 309.72 726.06 309.75 726.06 311.21 726.19 311.35 727.38 311.44 727.53 311.13 727.53 310.65 728.12 310.65 728.27 310.88 730.73 310.88 730.73 310.34 730.46 310.11 730.52 309.75 733.31 309.72 733.31 309.25 733.15 309.2 733.15 303.04 733.31 303.04 733.31 302.34 733.07 302.06 730.52 302.14 730.54 301.82 730.68 301.69 730.75 301.38 728 301.38 727.57 301.23 727.35 301.15 727.34 301.02 726.05 301.02 726.03 302.11 724.36 302.13 724.23 302.47 724.22 303.7 724.05 304.17 723.97 305.67"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 24</title>
+                    <g>
+                        <title></title>
                         <path id="RC_Cow_24" style={{strokeWidth: strokeWidth}} className="cls-2" d="M2653.8,2202.45v.78h-2.21l-.19.21,0,7.37.21.21h2.21v.7l.19.22h2.43l.11-.19h.43v.35l.2.19v.17h1.49V2211l.24-.19h1.42v-1.63l.19-.27v-1.39l.17-.06s.22.39.48.36h.59l.26,0v-1l-1.33,0v.15l-.15,0,0-1.51-.18-.17,0-.72.17-.36,0-.52-.42-.43-1.44,0,0-1.15h-1.4l-.28.59-.43,0-.29-.14Z" transform="translate(-1900 -1921)"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 23</title>
+                    <g>
+                        <title></title>
                         <path id="RC_Cow_23" style={{strokeWidth: strokeWidth}} className="cls-2" d="M2626.09,2202.08v-1.31h1.12l.33.52v.24l3.17,0v.34l-.17.06v.36h2.79v.54l-.17.15,0,6.36.2.22v.36h-2.78v.38h.22l0,.35h-3a1.85,1.85,0,0,1-.45.79h-1.18v-1.53h-1.91v-1.69l-.16-1.48-1.31,0v-1.12h1.3v-1.23l.2-.49v-1.64Z" transform="translate(-1900 -1921)"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 22</title>
+                    <g>
+                        <title></title>
                         <path id="RC_Cow_22" style={{strokeWidth: strokeWidth}} className="cls-2" d="M2319.66,2604.5v-.36h-.15v-.65l.15-.26h1.17v1.06l-.21.09v.12h.71l.16.22h1.09l.46.32h.55v1.32h.2s.15.56,0,.56h-.15l0,.34h.51l.21-.53v-.17h.88l.22.19v.87l-.37.39h-.53v.77s0,.4.18.39h.16v.38l-.33.52v1h.19v.32h-.92v.38l4.46.05V2622l.21.2V2624h-17.51l-.22-.19v-11.68l.22-.42,5.22,0v-.4h-.55l-.17-2.79h.23l-.07-.55a.75.75,0,0,1-.75-.65c-.13-.69,0-.66,0-.66l.29-.23.95,0,.07.62.32.09,0-2.22h.49l1.27-.49Z" transform="translate(-1900 -1921)"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 21</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Cow_21" style={{strokeWidth: strokeWidth}} className="cls-2" points="388.57 666.22 388.4 666.56 387.89 667.32 387.89 675.87 388.09 676.44 388.46 676.83 392.72 676.83 392.72 677.02 392.21 677.02 391.96 677.25 392.01 680.72 391.18 680.72 391.23 681.95 391.47 682.22 391.94 682.22 392.23 681.95 392.5 681.56 392.5 681.14 393.11 681.07 393.11 683.49 393.43 683.66 394.19 683.66 395.56 683.88 396 684.2 395.86 684.72 396 684.96 396 685.13 395.78 685.13 395.83 685.38 397.15 685.38 397.15 684.89 397.28 684.5 397.01 684.23 396.96 684.03 397.64 683.91 399.19 683.88 399.19 683.71 400 683.66 400 682.56 400.29 682.17 400.29 681.53 400 681.34 399.95 681.09 400.44 681.04 400.88 682 401.27 682.24 401.81 682 401.81 681.51 402 681.46 402 681.04 401.22 680.72 401.29 677.32 401.02 677.34 400.39 676.98 400.49 676.78 405.41 676.76 405.41 666.22 388.57 666.22"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 20</title>
+                    <g>
+                        <title></title>
                         <path id="RC_Cow_20" style={{strokeWidth: strokeWidth}} className="cls-2" d="M2296.39,2568.76v-1.13l.3-.15h.68s.08.4.2.4h.12v.68l-.24.39h.73l.32.22h.83l.79.2.36.39v1.72l-.22.41h.62l.22-.27V2571l.24-.2.83,0,.15.3v1.15h-.64l-.29.32.05,2.79h.2v.51h-.89l-.07.47h5l0,10.7H2288v-1l-.17-.24v-8.56l.27-.38,0-.52,5,0V2576l-.73-.3,0-3.42h-.53l0-1.25.27-.18h.56l.25.27.17.3,0,.54h.44l-.19-.57,0-1.29.37-.13-.05-.58h.57v-.27l1.47,0,.29-.24Z" transform="translate(-1900 -1921)"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 19</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Cow_19" style={{strokeWidth: strokeWidth}} className="cls-2" points="410.61 646.26 410.6 656.7 414.98 656.7 414.98 660.05 414.69 660.05 414.69 660.25 414.3 660.25 414.3 661.4 415.62 661.4 415.62 660.66 416.18 660.62 416.18 662.77 416.53 663.19 417.6 663.19 417.8 663.51 419.32 663.38 419.17 663.95 418.95 663.95 418.95 664.63 419.32 665.07 420.05 665.07 420.23 664.63 420.23 663.85 420.08 663.46 421.87 663.43 421.87 663.21 422.77 663.21 423.02 662.65 423.02 662.26 423.29 661.38 423.16 660.88 423.02 660.59 423.7 660.57 423.7 661.4 424.93 661.33 424.93 660.47 424.51 660.1 424.17 660.1 424.17 657.26 424.36 656.7 428.6 656.7 428.6 655.99 428.31 655.91 428.26 655.4 428.6 655.37 428.63 647.61 428.28 647.59 428.28 646.73 427.92 646.73 427.89 646.26 410.61 646.26"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 18</title>
+                    <g>
+                        <title></title>
                         <path id="RC_Cow_18" style={{strokeWidth: strokeWidth}} className="cls-2" d="M2316.32,2552.2h-.5v-.9h-1l-.38.57v.33l.35.56h.36l0,3.16.18.33h.55v.28h-5.35v10.58h17.6v-1.5l.42,0v-9l-5-.06,0-.3h.69l.2-.52,0-2.88a1.08,1.08,0,0,0,.88-.84c.16-.76-.36-.3-.36-.3l0-.36h-.93s.18.92-.26.9l-.44,0,0-1.64-1.29-1-1.36-.11-.44-.2.34-.39-.19-.57V2548h-.93v.58l-.13.28,0,.41-.6.2h-1.33l-.34.21-.2.13h-.55Z" transform="translate(-1900 -1921)"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 17</title>
+                    <g>
+                        <title></title>
                         <path id="RC_Cow_17" style={{strokeWidth: strokeWidth}} className="cls-2" d="M2294.29,2538l-6.44.1,0,10.24,0,.16h4.85v.93h-.55l-.2.19v3.19l-.74.17v.91l.19.39h.9l.19-.4,0-.37.55,0,0,2.21,1.27.37h.38v.17l1.47.06v.18h-.34v1l1.27.07a.55.55,0,0,0,.2-.45v-.33h-.17l0-.35-.21,0v-.17l1.73,0,.39-.33h.69l.23-.25v-.81l.34-.29V2554l-.34-.26,0-.17.76,0v.74l1.12,0v-1.12l-.42-.39h-.28v-1.08l.19-.35-.06-1.52v-.33l-.89-.05v-.93h4.94V2538Z" transform="translate(-1900 -1921)"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 16</title>
+                    <g>
+                        <title></title>
                         <path id="RC_Cow_16" style={{strokeWidth: strokeWidth}} className="cls-2" d="M2296.61,2520.2V2520h-.14v-.9l.14-.21h1l.11.23v.7l-.19.41h.72l.81.19v.22h.72l.73.14v1.83h-.14v.49l.77-.08v-.62l.16-.16h1.06v1.16l-.18.35h-.69v3h.14l0,.35h-.91v.19h4.7l-.07,10.53h-17.48v-10.4l.19-.13h5l.06-.23-.77.08.07-3.37-.6-.23v-1.05l.23-.21s1.06-.15,1.08.78l.37-.05,0-.37-.25-.87.62-1.12,1.05,0v-.36Z" transform="translate(-1900 -1921)"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 15</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Cow_15" style={{strokeWidth: strokeWidth}} className="cls-2" points="419.9 596.93 410.37 596.94 410.38 607.55 414.48 607.55 414.47 609.06 414.3 609.33 414.3 610.37 414.47 610.54 414.48 610.9 413.74 611.32 413.73 612.42 414.63 612.42 415.21 611.45 415.58 611.47 415.59 611.84 415.42 611.85 415.43 612.8 415.6 612.8 415.59 613.89 415.8 614.11 416.71 614.11 417.07 614.44 418.27 614.44 418.4 615.94 419.33 615.94 419.67 615.58 419.68 614.82 419.44 614.66 419.99 614.46 420.98 614.46 421.38 614.07 422.27 614.04 422.47 613.67 422.47 612.78 422.65 612.77 422.65 611.85 422.45 611.86 422.47 611.49 422.86 611.5 423.05 611.85 423.05 612.47 423.23 612.55 423.78 612.56 424.36 612.43 424.36 611.26 424.13 611.11 423.6 611.09 423.43 610.76 423.43 610.38 423.61 610.16 423.59 607.59 428.43 607.57 428.43 606.82 428.27 606.65 428.26 596.93 419.9 596.93"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 14</title>
+                    <g>
+                        <title></title>
                         <path id="RC_Cow_14" style={{strokeWidth: strokeWidth}} className="cls-2" d="M2319.51,2498.61h1l-.19.62h.29l-.19.63h.31l.35.22h1v.25h.68l.32.32.12.34.12.29v.3h.18v.78l-.4.37.1.14h.74l.12-.63v-.12l1,0,.37.37v.17l-.29.19v.3l-.54.12-.07,1.4,0,1.78-.22.49h-.59v.22h4.68v9.14l-.2.86h-.34v.51h-17.46v-10.41l.73-.19,4.8.1V2507l-.55,0-.21-.16,0-3.29a1,1,0,0,1-.34-1.64l.83.05.15.83.47.1,0-2.16,1.35-.58,1.54-.15Z" transform="translate(-1900 -1921)"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 13</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Cow_13" style={{strokeWidth: strokeWidth}} className="cls-2" points="392.7 575.02 391.96 575.02 391.96 578.35 391.45 578.35 391.23 578.58 391.23 579.67 391.41 579.82 392.03 579.82 392.29 579.61 392.3 579.42 392.48 579.41 392.48 578.92 393.06 578.92 393.06 581.3 393.68 581.3 393.79 581.48 394.59 581.48 394.59 581.66 396.22 581.66 396.06 582.04 395.86 582.04 395.86 582.99 396.09 583.2 396.99 583.2 397.3 582.97 397.3 582.27 397.06 582.05 396.99 581.66 398.62 581.66 398.62 581.48 399.73 581.51 399.95 581.11 399.95 580.21 400.27 580.18 400.27 579.52 399.91 579.26 399.95 578.92 400.5 578.87 400.7 579.65 401.77 579.64 401.77 579.11 402.05 579.11 402.05 578.85 401.53 578.36 401.11 578.33 401.04 577.24 401.25 577.22 401.25 576.65 401.29 575.34 401.42 575.02 400.26 575.02 400.34 574.45 405.07 574.45 405.19 574.45 405.33 572.53 405.35 562.38 387.65 562.38 387.65 574.23 388.24 574.61 389.19 574.63 389.66 574.45 392.73 574.4 392.7 575.02"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 12</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Cow_12" style={{strokeWidth: strokeWidth}} className="cls-2" points="422.47 506.12 422.51 505.72 422.74 505.56 423.56 505.56 423.78 505.78 423.78 506.7 423.78 506.83 424.14 507 424.71 507 424.93 506.86 425.42 506.84 425.61 507.16 425.65 510.37 426.54 510.37 426.54 510.22 427.12 510.19 427.12 511.5 426.09 511.5 426 511.13 425.65 511.14 425.63 513.95 425.65 514.64 424.93 514.64 424.9 514.47 423.99 514.5 423.78 514.64 423.76 516.16 422.7 516.16 422.71 515.77 422.47 515.79 422.47 515.4 422.31 515.38 422.31 515.23 421.58 515.23 421.58 515.62 420.3 515.62 420.23 515.44 419.32 515.43 419.32 514.75 419.01 514.49 416.5 514.51 416.5 507.09 416.74 506.87 419.28 506.87 419.29 506.49 419.31 506.12 422.47 506.12"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 11</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Cow_11" style={{strokeWidth: strokeWidth}} className="cls-2" points="391.37 507.96 391.21 507.96 391.21 507.03 391.62 507.03 391.96 506.88 392.45 506.88 392.66 507.06 392.89 507.24 392.89 507.6 393.53 507.6 393.69 507.42 395.88 507.42 395.88 507.76 396.4 507.78 396.4 508.56 398.84 508.56 398.44 509.35 398.25 509.35 398.23 512.06 398.64 512.38 398.26 512.38 398.26 515.11 398.51 515.11 398.46 515.78 398.64 515.78 398.62 516.17 395.85 516.09 395.85 516.42 395.8 516.56 396.06 516.56 396.04 516.96 392.91 516.96 392.4 517.43 391.41 517.43 391.21 517.3 391.21 516.53 391.42 516.12 389.71 516.15 389.46 515.76 389.33 515.16 389.33 513.97 389.2 513.95 389.2 512.77 388.08 512.77 387.9 512.63 387.9 511.73 388.11 511.52 389.17 511.55 389.2 510.54 389.4 509.62 389.55 509.3 389.55 508.51 391.19 508.56 391.37 508.37 391.37 507.96"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 10</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Cow_10" style={{strokeWidth: strokeWidth}} className="cls-2" points="418.95 485.46 416.33 485.46 416.33 485.84 416.54 485.84 416.53 492.73 416.33 492.73 416.33 493.12 418.95 493.12 418.95 493.83 419.3 494.06 419.5 494.2 421.16 494.2 421.37 493.83 422.31 493.85 422.31 494.59 423.78 494.59 423.78 493.28 423.97 493.07 425.65 493.11 425.65 492.73 425.43 492.72 425.47 492.5 425.65 492.5 425.65 491.98 425.44 491.98 425.47 490.33 425.65 489.96 427.16 489.93 427.16 488.8 425.96 488.81 425.61 489.01 425.62 488.43 425.47 488.43 425.46 486.61 425.64 485.83 425.28 485.46 423.61 485.46 423.59 485.25 423.85 485.3 423.77 484.31 423.2 484.16 422.86 484.16 422.46 484.16 422.31 484.36 422.3 484.67 422.27 484.72 418.95 484.71 418.95 485.46"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 9</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Cow_9" style={{strokeWidth: strokeWidth}} className="cls-2" points="391.23 486.72 391.23 485.83 392.86 485.83 392.86 486.54 393.41 486.55 394.01 486.2 395.77 486.22 396.03 486.72 395.67 486.93 395.67 487.15 395.87 487.3 398.65 487.3 398.65 487.8 398.27 488.24 398.27 490.81 398.65 491.08 398.65 491.21 398.28 491.46 398.27 493.85 398.48 494 398.46 494.41 398.86 494.71 398.86 494.95 395.84 494.95 396.03 495.33 396.04 495.69 392.93 495.69 392.5 496.25 391.45 496.25 391.23 496.04 391.23 495.12 391.41 494.9 389.73 494.94 389.55 494.71 389.55 494 389.37 492.54 389.18 492.52 389.18 491.58 388.06 491.6 387.87 491.4 387.87 490.5 389.17 490.52 389.19 489.5 389.4 488.65 389.52 487.86 389.54 487.31 391.19 487.31 391.39 487.12 391.41 486.75 391.23 486.72"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 8</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Cow_8" style={{strokeWidth: strokeWidth}} className="cls-2" points="418.93 464.58 419.27 463.68 422.33 463.68 422.33 463.16 422.94 463.16 423.58 462.92 423.58 463.24 423.8 463.19 423.8 464.58 425.69 464.58 425.56 465.17 425.42 467.23 425.69 467.99 427.16 467.99 427.16 469.06 425.98 468.94 425.64 468.67 425.42 469.26 425.39 470.9 425.64 471.27 425.61 472.2 423.78 472.2 423.78 473.67 422.7 473.67 422.33 473.52 422.33 472.94 418.93 473.01 418.93 472.18 416.55 472.25 416.55 464.58 418.93 464.58"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 7</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Cow_7" style={{strokeWidth: strokeWidth}} className="cls-2" points="391.23 465.54 391.23 464.39 391.41 464.24 392.49 464.24 392.69 464.44 392.69 464.98 393.25 464.8 395.84 464.8 395.84 465.19 395.63 465.17 395.67 465.54 398.47 465.55 398.47 466.11 398.29 466.46 398.27 472.63 398.42 472.83 398.47 473.15 395.67 473.15 395.66 473.74 395.86 473.74 395.86 474.1 395.67 474.3 393.65 474.3 393.06 473.92 392.7 473.92 392.71 474.49 392.5 474.68 391.23 474.68 391.23 473.17 389.54 473.18 389.35 472.62 389.35 471.48 389.17 470.01 388.02 470.01 387.87 469.65 387.87 469.08 388.08 469.08 388.06 468.9 389.16 468.91 389.16 467.97 389.36 466.1 389.55 465.55 391.23 465.54"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 6</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Cow_6" style={{strokeWidth: strokeWidth}} className="cls-2" points="423.78 322.4 422.47 322.4 422.47 322.95 419.72 322.95 419.11 322.95 419.11 323.13 419.34 323.69 416.53 323.69 416.53 331.1 416.7 331.16 416.7 331.35 419.31 331.35 419.32 331.53 419.49 331.53 419.51 332.27 421.55 332.27 421.54 332.1 422.32 332.07 422.67 332.81 423.82 332.81 423.82 331.3 425.64 331.35 425.64 330.97 425.45 330.97 425.45 330.6 425.64 330.59 425.64 327.98 426 327.99 426 328.14 427.13 328.18 427.13 327.01 426.02 327.05 425.63 327.25 425.65 323.69 423.78 323.69 423.78 322.4"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 5</title>
+                    <g>
+                        <title></title>
                         <path id="RC_Cow_5" style={{strokeWidth: strokeWidth}} className="cls-2" d="M2291.23,2244.89v.75l.32.19v.19h-.32l-.22.19h-1.5l-.14.36v1.5l-.2.18v1.11h-1.31v.95l.17.16h1.14v1.11l.16.24v1.2l.36.64v.17h1.71v1.29h1.1l.39-.57h3.16v-.33l-.22-.21.42-.18h2.47l-.07-.39s-.05-.71-.2-.71h-.15l0-2.46h.17v-.51h-.18v-2.6l.44-.63-.06-.33h-2.79v-.2l-.41-.16h.47l.11-.37-.18-.19-1.88-.19-.88.21-.21.19v-.78h-1.67Z" transform="translate(-1900 -1921)"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 4</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Cow_4" style={{strokeWidth: strokeWidth}} className="cls-2" points="416.72 302.12 416.35 302.31 416.35 302.48 416.53 302.48 416.53 309.56 416.35 309.56 416.35 309.73 418.94 309.75 419.32 310.3 418.94 310.3 418.94 310.5 419.32 310.85 419.48 310.85 421.18 310.85 421.54 310.66 422 310.68 422.27 310.48 422.27 311.04 422.59 311.4 423.62 311.4 423.75 311.4 423.75 310.32 423.4 310.13 423.75 310.13 424.01 309.75 425.64 309.73 425.64 309.4 425.43 309.16 425.45 307.05 425.64 306.57 426.18 306.6 426.18 306.76 427.11 306.76 427.11 305.64 425.6 305.67 425.47 305.06 425.47 303.45 425.63 303.42 425.64 302.51 425.25 302.26 423.81 302.12 423.79 301 422.3 301 422.3 301.55 421.73 301.55 419.67 301.38 419.1 301.38 419.12 302.1 416.72 302.12"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 3</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Cow_3" style={{strokeWidth: strokeWidth}} className="cls-2" points="391.36 302.47 391.21 302.9 391.21 303.6 391.21 303.97 389.54 303.97 389.37 304.48 389.37 306.02 389.18 306.32 389.18 307.14 387.86 307.14 387.86 307.91 388.04 308.25 389.17 308.25 389.34 309.38 389.34 310.13 389.52 311.39 389.71 311.39 389.71 311.6 391.36 311.6 391.24 312.17 391.24 312.72 391.41 312.92 392.45 312.92 392.9 312.34 396.39 312.37 396.39 311.6 398.71 311.62 398.71 311.24 398.23 310.86 398.71 310.85 398.61 310.48 398.24 310.48 398.28 304.9 398.66 304.33 398.71 303.98 396.41 303.99 395.67 303.79 395.7 303.6 396.13 303.61 396.04 303.23 395.88 303.23 395.88 303.05 393.43 303.05 392.88 303.22 392.87 302.67 392.63 302.47 391.36 302.47"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 2</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Cow_2" style={{strokeWidth: strokeWidth}} className="cls-2" points="422.3 280.51 422.3 279.95 422.69 279.79 423.78 279.79 423.78 280.66 423.4 280.89 423.4 281.1 423.78 281.1 424.01 281.29 425.63 281.29 425.64 282.36 425.47 282.36 425.48 284.26 425.64 284.62 427.11 284.62 427.11 285.73 426.02 285.73 425.49 285.52 425.47 287.73 425.63 287.8 425.64 288.89 423.79 288.89 423.79 290.38 422.67 290.38 422.3 290.2 422.3 289.66 418.96 289.64 418.96 289.3 419.5 289.26 418.96 289.07 418.96 288.89 416.34 288.88 416.53 288.54 416.51 281.63 416.34 281.3 418.95 281.27 419.33 281.1 418.95 280.53 422.3 280.51"/>
                     </g>
 
-                    <g onClick={handleSelectOffice}>
-                        <title>Coworking 1</title>
+                    <g>
+                        <title></title>
                         <polygon id="RC_Cow_1" style={{strokeWidth: strokeWidth}} className="cls-2" points="387.85 285.75 389.2 285.75 389.51 282.21 391.37 282.21 391.37 281.12 392.63 281.12 392.63 281.64 393.63 281.47 395.86 281.46 395.86 281.85 395.68 281.85 395.68 282.26 398.46 282.23 398.46 283.12 398.28 283.19 398.25 285.93 398.54 285.93 398.54 286.26 398.28 286.26 398.28 289.3 398.48 289.3 398.54 290 395.63 290 395.85 290.91 393.19 290.91 393.09 290.72 392.68 290.75 392.48 291.5 391.42 291.5 391.21 291.29 391.21 290 389.55 289.98 389.17 287.92 389.15 286.83 388.06 286.86 387.85 286.67 387.85 285.75"/>
                     </g>
                 </g>
