@@ -2,8 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Bookings;
+use App\Models\Categories;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Offices extends Model
 {
@@ -16,12 +20,25 @@ class Offices extends Model
         'code',
         'price',
         'location',
-        'status'
+        'status',
+        'categorie_id'
     ];
 
 
     protected $casts = [
         'created_at' => 'datetime:d/m/Y H:i:s',
         'updated_at' => 'datetime:d/m/Y H:i:s',
-    ]; 
+    ];  
+
+
+    public function categorie(): BelongsTo
+    {
+        return $this->belongsTo(Categories::class);
+    }   
+    
+    
+    public function booking(): HasMany
+    {
+        return $this->hasMany(Bookings::class);
+    } 
 }

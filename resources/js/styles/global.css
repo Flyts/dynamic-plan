@@ -5,6 +5,9 @@
     --no-color: rgba(0 0 0 / 0);
     --filter: rgba(0 0 0 / .6);
 
+    --error: #dd2929;
+    --error_bloc: rgba(221 41 41 / .4);
+
     --base-color: #100C0D;
     --base-color_9: rgba(16 12 13 / .9);
     --base-color_8: rgba(16 12 13 / .8);

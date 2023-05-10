@@ -8,24 +8,15 @@ import Loader from "./pieces/_Loader"
 import axios from "axios"
 import { useState } from "react"
 import {BiLoaderAlt} from "react-icons/bi"
+import {TbUser, TbUsers} from "react-icons/tb"
+import BookingForm from "./BookingForm"
+import { bookingStore } from "@/stores/bookingStore"
 
 function ModalBureau()
 {
     async function handleBookOffice(code)
     {
-        setLoader(true)
-        try {
-            const reserver = await axios.post(route("office.reserver"), {code})
-
-            setOffices(reserver.data.result)
-            setBookOfficeMessage(reserver.data.message)
-            setLoader(false)
-            setOfficeStatus(false)
-            resetOffice()
-        } catch (error) {
-            console.error(error)
-            setLoader(false)
-        }
+        setBookingShowForm(true)
     }
 
     function handleCloseModal()
@@ -42,6 +33,8 @@ function ModalBureau()
         setBookOfficeMessage
     } = bureauStore(state => state)
 
+    const {bookingShowForm, setBookingShowForm} = bookingStore(state => state)
+
     const [loader, setLoader] = useState(false)
 
     const component = 
@@ -49,11 +42,6 @@ function ModalBureau()
         {
             office ?
                 <div className="bloc">
-                    {/* <div className="top">
-                        <h4>{selectedOffice}</h4>
-
-                        <GrFormClose className="close" onClick={handleCloseModal}/>
-                    </div> */}
                     {
                         !officeLoader
                         ?
@@ -66,11 +54,30 @@ function ModalBureau()
                                     <div className="texts">
                                         <h4>{office.name}</h4>
                                         <p>{office.description}</p>
-                                        <div className="icons">
-                                            <BsPlug className="icon" title={"inclus : Électricité"}/>
-                                            <TiWiFi className="icon" title={"inclus : Connexion internet"}/>
-                                            <BsSnow className="icon" title={"inclus : Climatisation"}/>
-                                            <MdOutlineChair className="icon" title={"inclus : Mobilier"}/>
+                                        <div className={`icons ${!office.booking.length ? "center" : null}`}>
+                                            <div className="office_icon">
+                                                <BsPlug className="icon" title={"inclus : Électricité"}/>
+                                                <TiWiFi className="icon" title={"inclus : Connexion internet"}/>
+                                                <BsSnow className="icon" title={"inclus : Climatisation"}/>
+                                                <MdOutlineChair className="icon" title={"inclus : Mobilier"}/>
+                                            </div>
+
+                                            {
+                                                office.booking.length
+                                                ?
+                                                    <div className={`booking`}>
+                                                        <span>{`${office.booking.length} réservation${office.booking.length > 1 ? "s" : ""}`}</span>
+                                                        {
+                                                            office.booking.length > 1 
+                                                            ?
+                                                                <TbUsers className="icon" title={`${office.booking.length} personnes ont réservées ${office.categorie.name+" - "+office.name}`}/>
+                                                            :
+                                                                <TbUser className="icon" title={`${office.booking.length} personne a réservée ${office.categorie.name+" - "+office.name}`}/>
+                                                        }
+
+                                                    </div>
+                                                :null
+                                            }
                                         </div>
                                     </div>
                                     <div className="buttons">
@@ -96,6 +103,14 @@ function ModalBureau()
                             </>
                         :
                             <Loader/>
+                    }
+
+                    {
+                        bookingShowForm 
+                        ?
+                            <BookingForm/>
+                        :
+                        null
                     }
                 </div>
             : null

@@ -1,0 +1,187 @@
+.Form
+{
+    background-color: var(--white);
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    z-index: 3;
+}
+
+.Form .top
+{
+    min-height: 50px;
+    padding: 0 var(--screen);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Form .top h4
+{
+    font-size: var(--h4);
+    font-weight: 500;
+    color: var(--base-color_9);
+}
+
+.Form .top h4 span
+{
+    margin-left: 5px;
+    color: var(--base-color_7);
+}
+
+.Form .top .icon
+{
+    font-size: var(--h4);
+    color: var(--base-color_6);
+    cursor: pointer;
+
+    transition: .3s ease-in-out;
+}
+.Form .top .icon:hover
+{
+    color: var(--base-color_9);
+}
+
+
+.Form form
+{
+    width: 100%;
+    height: calc(100% - 50px);
+}
+
+.Form form .inputs
+{
+    padding: 20px var(--screen);
+    width: 100%;
+    height: calc(100% - 70px);
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.Form form .inputs .message_error
+{
+    border: 1px solid var(--error);
+    background-color: var(--error_bloc);
+    color: var(--error);
+    font-size: 14px;
+    font-style: italic;
+    padding: 10px;
+    border-radius: var(--bloc_radius);
+}
+
+.Form form .inputs .input
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.Form form .inputs .input label
+{
+    color: var(--base-color_7);
+    font-weight: 500;
+    font-size: var(--normal-size);
+}
+
+.Form form .inputs .input input,
+.Form form .inputs .input select
+{
+    border: 1px solid var(--base-color_2);
+    background: var(--no-color);
+    border-radius: var(--bloc_radius);
+    outline: none !important;
+    padding: 8px 15px;
+    color: var(--base-color_7);
+    margin-top: 5px;
+
+    transition: .3s ease-in-out;
+}
+.Form form .inputs .input input:focus,
+.Form form .inputs .input select:focus
+{
+    border: 1px solid var(--second-color);
+}
+
+.Form form .inputs .input .error
+{
+    font-size: 14px;
+    font-style: italic;
+    color: var(--error);
+    margin-top: 5px;
+    width: 100%;
+}
+
+.Form form .btns
+{
+    min-height: 70px;
+    padding: 0 var(--screen);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Form form .btns button
+{
+    border: 2px solid var(--second-color);
+    background-color: var(--no-color);
+    color: var(--second-color);
+    padding: 6px 18px;
+    border-radius: var(--bloc_radius_2);
+    font-size: var(--normal-size);
+    font-weight: 600;
+
+    display: flex;
+    align-items: center;
+
+    transition: .3s ease-in-out;
+}
+.Form form .btns button:hover
+{
+    border: 2px solid var(--second-color);
+    background-color: var(--second-color);
+    color: var(--white);
+}
+
+
+.Form form .btns .disabled
+{
+    border: 2px solid var(--second-color);
+    background-color: var(--no-color);
+    color: var(--second-color);
+    cursor: not-allowed;
+}
+.Form form .btns .disabled:hover
+{
+    border: 2px solid var(--second-color);
+    background-color: var(--no-color);
+    color: var(--second-color);
+}
+
+.Form form .btns button .icon
+{
+  margin-left: 10px;
+  font-size: 18px;
+  transform: rotate(0deg);
+
+  animation: loader 1s ease-in-out infinite;
+}
+@keyframes loader 
+{
+  0%{
+      transform: rotate(0deg);
+  }
+  100%{
+      transform: rotate(360deg);
+  }
+}

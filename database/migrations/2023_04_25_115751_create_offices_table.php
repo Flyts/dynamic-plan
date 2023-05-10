@@ -6,14 +6,11 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('offices', function (Blueprint $table) 
         {
-            $table->id();
+            $table->bigIncrements("id");
             $table->string("name");
             $table->text("description");
             $table->string("img");
@@ -21,6 +18,9 @@ return new class extends Migration
             $table->float("price", 8, 2);
             $table->string("location");
             $table->enum("status", [1,0])->default(0);
+
+            $table->foreignId('categorie_id')->constrained();
+
             $table->timestamps();
         });
     }
