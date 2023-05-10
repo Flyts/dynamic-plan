@@ -32,7 +32,7 @@ class OfficeController extends BaseController
                     "name"        => $exist->categorie->name,
                     "description" => $exist->categorie->description
                 ],
-                "booking" => $exist->booking,
+                "booking" => $exist->booking->where("status", 1),
             ];
 
             return $this->sendResponse($office, null, 200);
@@ -75,8 +75,10 @@ class OfficeController extends BaseController
         {
             $exist_booking = Bookings::where("email", $email)
                                      ->where("offices_id", )
+                                     ->where("status", 1)
                                      ->orWhere("tel", $tel)
                                      ->where("offices_id", $exist->id)
+                                     ->where("status", 1)
                                      ->first(["id"]);
 
             if(!$exist_booking)

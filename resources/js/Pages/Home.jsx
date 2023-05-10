@@ -10,12 +10,13 @@ function Home({offices})
     const {setOffices} = bureauStore(state => state)
 
     useEffect(() => {
-        setOffices(offices)
+        const data = offices.reduce((a, v) => ({...a, [v.code]: v}), {}) 
+        setOffices(data)
     }, [])
 
     const component = 
     <Page title={"Home"}>
-        <h1>Plan</h1>
+        {/* <h1>SILIKIN VILLAGE PHASE 3 | EXE - 36A MEUBLES RDC</h1> */}
 
         <main>
             <PlanModele1/>

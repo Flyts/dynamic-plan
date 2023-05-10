@@ -17,6 +17,7 @@ class Bookings extends Model
         'email',
         'tel',
         'sexe',
+        'status',
         'offices_id',
     ];
 

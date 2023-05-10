@@ -90,6 +90,59 @@
     stroke: #f01d8a;
 }
 
+.Plan .Occupe .cls-2,
+.Plan .Occupe .cls-3,
+.Plan .Occupe .cls-4,
+.Plan .Occupe .cls-5,
+.Plan .Occupe .cls-6,
+.Plan .Occupe .cls-7
+ {
+    fill: rgba(204 38 38 / .4);
+ }
+
+.Plan .Libre .cls-2,
+.Plan .Libre .cls-3,
+.Plan .Libre .cls-4,
+.Plan .Libre .cls-5,
+.Plan .Libre .cls-6,
+.Plan .Libre .cls-7
+ {
+    fill: rgba(38, 204, 66, 0.4);
+ }
+
+
+
+
+/**-- Ecran(<991px) --**/
+@media all and (max-width: 991px) 
+{
+    .Bloc_Plan .Btns
+    {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/**-- Ecran(<771px) --**/
+@media all and (max-width: 771px) 
+{
+    .Plan
+    {
+        border: 1px solid red;
+        width: 350px;
+        height: auto;
+        overflow: auto;
+    }
+}
+
+
+/**-- Ecran(<771px) --**/
+@media all and (min-width: 1500px) 
+{
+}
+
 
 
 

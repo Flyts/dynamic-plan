@@ -20,7 +20,8 @@ class OfficesTableSeeder extends Seeder
             "code" => "rc_auditorium",
             "price" => 10.00,
             "location" => "Silikin Village",
-            "categorie_id" => 1
+            "categorie_id" => 1,
+            "status" => 1
         ]);
 
 
